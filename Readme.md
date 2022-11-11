@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Димитар Житарямба](https://up.htmlacademy.ru/nodejs-2/2/user/1328779).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Зубко](https://htmlacademy.ru/profile/whatislove).
 
 ---
 
