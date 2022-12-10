@@ -1,13 +1,12 @@
 import {Post, PostTypeEnum} from '@readme/shared-types';
 
 export class BlogPostEntity implements Post {
-  public _id: string;
-  public idOriginal: string;
+  public id: number;
+  public idOriginal: number;
   public isRepost: boolean;
   public postType: PostTypeEnum;
   public name: string;
   public author: string;
-  public authorOriginal: string;
   public date: Date;
   public tags: string;
   public textPreview: string;
@@ -18,6 +17,7 @@ export class BlogPostEntity implements Post {
   public photoURL: string;
   public linkText: string;
   public linkURL: string;
+  public createdAt: Date;
 
   constructor(blogPost: Post) {
     this.fillEntity(blogPost);
@@ -28,13 +28,12 @@ export class BlogPostEntity implements Post {
   }
 
   public fillEntity(blogPost: Post) {
-    this._id = blogPost._id;
+    this.id = blogPost.id;
     this.idOriginal = blogPost.idOriginal;
     this.isRepost = blogPost.isRepost;
     this.postType = blogPost.postType;
     this.name = blogPost.name;
     this.author = blogPost.author;
-    this.authorOriginal = blogPost.authorOriginal;
     this.date = blogPost.date;
     this.tags = blogPost.tags;
     this.textPreview = blogPost.textPreview;
@@ -45,5 +44,6 @@ export class BlogPostEntity implements Post {
     this.photoURL = blogPost.photoURL;
     this.linkText = blogPost.linkText;
     this.linkURL = blogPost.linkURL;
+    this.createdAt = blogPost.createdAt;
   }
 }

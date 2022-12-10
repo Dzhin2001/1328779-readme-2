@@ -1,13 +1,12 @@
 import {PostTypeEnum} from './post-type.enum';
 
 export interface Post {
-  _id?: string;
-  idOriginal?: string;
+  id?: number;
+  idOriginal?: number;
   isRepost?: boolean;
   postType?: PostTypeEnum;
   name?: string;
   author?: string;
-  authorOriginal?: string;
   date?: Date;
   tags?: string;
   textPreview?: string;
@@ -18,4 +17,5 @@ export interface Post {
   photoURL?: string;
   linkText?: string;
   linkURL?: string;
+  createdAt?: Date;
 }

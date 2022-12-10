@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import {BlogReactionMemoryRepository} from './blog-reaction-memory.repository';
+import {BlogReactionRepository} from './blog-reaction.repository';
 
 @Module({
-  providers: [BlogReactionMemoryRepository],
-  exports: [BlogReactionMemoryRepository]
+  providers: [BlogReactionRepository],
+  exports: [BlogReactionRepository]
 })
 export class BlogReactionModule {}

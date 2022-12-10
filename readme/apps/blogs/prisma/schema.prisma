@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+ id             Int @id @default(autoincrement())
+ idOriginal     Int  @default(null)
+ isRepost       Boolean @default(false)
+ postType       String
+ name           String @default(null)
+ author         String @default(null)
+ date           DateTime @default(now())
+ tags           String @default(null)
+ textPreview    String @default(null)
+ text           String @default(null)
+ quoteText      String @default(null)
+ quoteAuthor    String @default(null)
+ videoURL       String @default(null)
+ photoURL       String @default(null)
+ linkText       String @default(null)
+ linkURL        String @default(null)
+ createdAt      DateTime @default(now())
+ reactions      Reaction[]
+}
+
+model Reaction {
+  id          Int @id @default(autoincrement())
+  type        String
+  userId      String
+  text        String @default(null)
+  post        Post @relation(fields: [postId], references: [id])
+  postId      Int
+  isDelete    Boolean @default(false)
+  createdAt   DateTime @default(now())
+}

@@ -1,11 +1,13 @@
-import {Reaction} from '@readme/shared-types';
+import {Reaction, ReactionTypeEnum} from '@readme/shared-types';
 
 export class BlogReactionEntity implements Reaction {
-  public _id: string;
+  public id: number;
+  public type: ReactionTypeEnum;
   public userId: string;
-  public postId: string;
+  public postId: number;
   public text: string;
   public isDelete: boolean;
+  public createdAt: Date;
 
   constructor(blogReaction: Reaction) {
     this.fillEntity(blogReaction);
@@ -16,10 +18,12 @@ export class BlogReactionEntity implements Reaction {
   }
 
   public fillEntity(blogReaction: Reaction) {
-    this._id = blogReaction._id;
+    this.id = blogReaction.id;
+    this.type = blogReaction.type;
     this.userId = blogReaction.userId;
     this.postId = blogReaction.postId;
     this.text = blogReaction.text;
     this.isDelete = blogReaction.isDelete;
+    this.createdAt = blogReaction.createdAt;
   }
 }

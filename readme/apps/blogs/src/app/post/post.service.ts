@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {BlogPostMemoryRepository} from '../blog-post/blog-post-memory.repository';
+import {BlogPostRepository} from '../blog-post/blog-post.repository';
 import {BlogPostEntity} from '../blog-post/blog-post.entity';
 import {CreateVideoDto} from './dto/create-video.dto';
 import {CreateTextDto} from './dto/create-text.dto';
@@ -11,7 +11,7 @@ import {CreateRepostDto} from './dto/create-repost.dto';
 @Injectable()
 export class PostService {
   constructor(
-    private readonly blogPostRepository: BlogPostMemoryRepository
+    private readonly blogPostRepository: BlogPostRepository
   ) {}
 
   async create(dto: CreateVideoDto | CreateTextDto | CreateQuoteDto | CreatePhotoDto | CreateLinkDto ) {
@@ -21,12 +21,12 @@ export class PostService {
 
   async createRepost(dto: CreateRepostDto ) {
     const {idOriginal} = dto;
-    const postOriginal = await this.blogPostRepository.findById(idOriginal);
+    const postOriginal = await this.blogPostRepository.findById(+idOriginal);
     const postNew ={
       ...postOriginal
-      ,_id: ''
+      ,id: -1
       ,author: ''
-      ,idOriginal
+      ,idOriginal: -1
       ,authorOriginal: postOriginal.author
       ,isRepost: true
     };
