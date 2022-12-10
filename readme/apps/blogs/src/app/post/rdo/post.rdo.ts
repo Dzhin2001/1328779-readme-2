@@ -7,15 +7,15 @@ export class PostRdo {
     description: 'The uniq user ID',
     example: '13'
   })
-  @Expose({ name: '_id'})
-  public id: string;
+  @Expose({ name: 'id'})
+  public id: number;
 
   @ApiProperty({
     description: 'Original post id',
-    example: 'id12345678'
+    example: '12345678'
   })
   @Expose()
-  public idOriginal: string;
+  public idOriginal: number;
 
   @ApiProperty({
     description: 'Repost flag',

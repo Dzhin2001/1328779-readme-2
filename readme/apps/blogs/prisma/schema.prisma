@@ -11,32 +11,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PostType {
+  video
+  text
+  quote
+  photo
+  link
+}
+
+enum ReactionType {
+  comment
+  like
+}
+
 model Post {
  id             Int @id @default(autoincrement())
- idOriginal     Int  @default(null)
+ idOriginal     Int
  isRepost       Boolean @default(false)
- postType       String
- name           String @default(null)
- author         String @default(null)
+ postType       PostType
+ name           String
+ author         String
  date           DateTime @default(now())
- tags           String @default(null)
- textPreview    String @default(null)
- text           String @default(null)
- quoteText      String @default(null)
- quoteAuthor    String @default(null)
- videoURL       String @default(null)
- photoURL       String @default(null)
- linkText       String @default(null)
- linkURL        String @default(null)
+ tags           String
+ textPreview    String
+ text           String
+ quoteText      String
+ quoteAuthor    String
+ videoURL       String
+ photoURL       String
+ linkText       String
+ linkURL        String
  createdAt      DateTime @default(now())
  reactions      Reaction[]
 }
 
 model Reaction {
   id          Int @id @default(autoincrement())
-  type        String
+  type        ReactionType
   userId      String
-  text        String @default(null)
+  text        String
   post        Post @relation(fields: [postId], references: [id])
   postId      Int
   isDelete    Boolean @default(false)

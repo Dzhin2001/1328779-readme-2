@@ -18,7 +18,7 @@ export class BlogReactionEntity implements Reaction {
   }
 
   public fillEntity(blogReaction: Reaction) {
-    this.id = blogReaction.id;
+    // this.id = blogReaction.id;
     this.type = blogReaction.type;
     this.userId = blogReaction.userId;
     this.postId = blogReaction.postId;

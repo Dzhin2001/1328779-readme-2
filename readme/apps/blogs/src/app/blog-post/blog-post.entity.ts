@@ -32,7 +32,7 @@ export class BlogPostEntity implements Post {
   }
 
   public fillEntity(blogPost: Post) {
-    this.id = blogPost.id;
+    // this.id = blogPost.id;
     this.idOriginal = blogPost.idOriginal;
     this.isRepost = blogPost.isRepost;
     this.postType = blogPost.postType;
