@@ -1,6 +1,6 @@
 import { CRUDRepository } from '@readme/core';
 import { BlogReactionEntity } from './blog-reaction.entity';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import {Reaction} from '@readme/shared-types';
 
@@ -9,9 +9,10 @@ export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: BlogReactionEntity): Promise<Reaction> {
-    return this.prisma.reaction.create({
-      data: { ...item.toObject() }
-    });
+    return;
+    // return this.prisma.reaction.create({
+    //   data: { ...item.toObject() }
+    // });
   }
 
   public async destroy(id: number): Promise<void> {
@@ -41,11 +42,12 @@ export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity
   }
 
   public update(id: number, item: BlogReactionEntity): Promise<Reaction> {
-    return this.prisma.reaction.update({
-      where: {
-        id
-      },
-      data: { ...item.toObject(), id}
-    });
+    return;
+    // return this.prisma.reaction.update({
+    //   where: {
+    //     id
+    //   },
+    //   data: { ...item.toObject(), id}
+    // });
   }
 }

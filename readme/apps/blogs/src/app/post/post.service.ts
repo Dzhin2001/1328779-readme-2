@@ -16,7 +16,7 @@ export class PostService {
 
   async create(dto: CreateVideoDto | CreateTextDto | CreateQuoteDto | CreatePhotoDto | CreateLinkDto ) {
     const postEntity = new BlogPostEntity(dto);
-    return this.blogPostRepository.create(postEntity);
+    // return this.blogPostRepository.create(postEntity);
   }
 
   async createRepost(dto: CreateRepostDto ) {
@@ -31,6 +31,6 @@ export class PostService {
       ,isRepost: true
     };
     const postEntity = new BlogPostEntity(postNew);
-    return this.blogPostRepository.create(postEntity);
+    // return this.blogPostRepository.create(postEntity);
   }
 }

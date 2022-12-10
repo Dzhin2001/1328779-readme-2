@@ -25,14 +25,14 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
     this.fillEntity(blogPost);
   }
 
-  public toObject() {
+  public toObject():BlogPostEntity {
     return {
       ...this
-      ,reactions: this.reactions.map(({id}) => ({id}))
+      // ,reactions: this.reactions.map(({id}) => ({id}))
     };
   }
 
-  public fillEntity(blogPost: Post) {
+  public fillEntity(blogPost: Post): void {
     // this.id = blogPost.id;
     this.idOriginal = blogPost.idOriginal;
     this.isRepost = blogPost.isRepost;

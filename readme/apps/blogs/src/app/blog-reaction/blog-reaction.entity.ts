@@ -14,11 +14,11 @@ export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction 
     this.fillEntity(blogReaction);
   }
 
-  public toObject() {
+  public toObject(): BlogReactionEntity {
     return {...this};
   }
 
-  public fillEntity(blogReaction: Reaction) {
+  public fillEntity(blogReaction: Reaction): void {
     // this.id = blogReaction.id;
     this.type = blogReaction.type;
     this.userId = blogReaction.userId;

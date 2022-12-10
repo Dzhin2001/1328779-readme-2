@@ -1,6 +1,6 @@
 import { CRUDRepository } from '@readme/core';
 import { BlogPostEntity } from './blog-post.entity';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import {Post} from '@readme/shared-types';
 
@@ -9,8 +9,13 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: BlogPostEntity): Promise<Post> {
+    const entityData = item.toObject();
     return this.prisma.post.create({
-      data: { ...item.toObject() }
+      data: {
+        id: null,
+        ...entityData,
+      },
+      // reactions: { connect: { id: entityData.id } },
     });
   }
 
@@ -41,11 +46,12 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
   }
 
   public update(id: number, item: BlogPostEntity): Promise<Post> {
-    return this.prisma.post.update({
-      where: {
-        id
-      },
-      data: { ...item.toObject(), id}
-    });
+    return;
+    // return this.prisma.post.update({
+    //   where: {
+    //     id
+    //   },
+    //   data: { ...item.toObject(), id}
+    // });
   }
 }
