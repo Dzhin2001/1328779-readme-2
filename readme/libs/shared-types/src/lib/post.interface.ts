@@ -1,4 +1,5 @@
 import {PostTypeEnum} from './post-type.enum';
+import {Reaction} from './reaction.interface';
 
 export interface Post {
   id?: number;
@@ -18,4 +19,5 @@ export interface Post {
   linkText?: string;
   linkURL?: string;
   createdAt?: Date;
+  reactions?: Reaction[];
 }

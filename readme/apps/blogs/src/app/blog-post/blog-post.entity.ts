@@ -1,4 +1,4 @@
-import {Post, PostTypeEnum} from '@readme/shared-types';
+import {Post, PostTypeEnum, Reaction} from '@readme/shared-types';
 
 export class BlogPostEntity implements Post {
   public id: number;
@@ -18,13 +18,17 @@ export class BlogPostEntity implements Post {
   public linkText: string;
   public linkURL: string;
   public createdAt: Date;
+  public reactions: Reaction[];
 
   constructor(blogPost: Post) {
     this.fillEntity(blogPost);
   }
 
   public toObject() {
-    return {...this};
+    return {
+      ...this
+      ,reactions: this.reactions.map(({id}) => ({id}))
+    };
   }
 
   public fillEntity(blogPost: Post) {
@@ -34,7 +38,7 @@ export class BlogPostEntity implements Post {
     this.postType = blogPost.postType;
     this.name = blogPost.name;
     this.author = blogPost.author;
-    this.date = blogPost.date;
+    this.date = new Date();
     this.tags = blogPost.tags;
     this.textPreview = blogPost.textPreview;
     this.text = blogPost.text;
@@ -44,6 +48,7 @@ export class BlogPostEntity implements Post {
     this.photoURL = blogPost.photoURL;
     this.linkText = blogPost.linkText;
     this.linkURL = blogPost.linkURL;
-    this.createdAt = blogPost.createdAt;
+    this.createdAt = new Date();
+    this.reactions = [...blogPost.reactions];
   }
 }
