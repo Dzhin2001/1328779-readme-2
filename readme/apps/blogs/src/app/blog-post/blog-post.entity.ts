@@ -1,6 +1,7 @@
 import {Post, PostTypeEnum, Reaction} from '@readme/shared-types';
+import { Entity } from '@readme/core';
 
-export class BlogPostEntity implements Post {
+export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public id: number;
   public idOriginal: number;
   public isRepost: boolean;

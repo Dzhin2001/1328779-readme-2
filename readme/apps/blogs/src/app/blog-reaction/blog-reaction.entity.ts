@@ -1,6 +1,7 @@
 import {Reaction, ReactionTypeEnum} from '@readme/shared-types';
+import {Entity} from '@readme/core';
 
-export class BlogReactionEntity implements Reaction {
+export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction {
   public id: number;
   public type: ReactionTypeEnum;
   public userId: string;

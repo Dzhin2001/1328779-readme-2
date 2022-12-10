@@ -7,7 +7,7 @@ export class PostRdo {
     description: 'The uniq user ID',
     example: '13'
   })
-  @Expose({ name: 'id'})
+  @Expose()
   public id: number;
 
   @ApiProperty({
