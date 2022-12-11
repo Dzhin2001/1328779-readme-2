@@ -23,11 +23,17 @@ export class CommentRdo {
   @Expose()
   public userId: String;
 
-
   @ApiProperty({
     description: 'Text of comment',
     example: 'Its my first comment. ...'
   })
+  @Expose()
   public text: string;
 
+  @ApiProperty({
+    description: 'Deletion flag',
+    example: 'true/false'
+  })
+  @Expose()
+  public isDelete: boolean;
 }

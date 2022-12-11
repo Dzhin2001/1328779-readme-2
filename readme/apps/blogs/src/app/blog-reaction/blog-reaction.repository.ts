@@ -9,10 +9,10 @@ export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: BlogReactionEntity): Promise<Reaction> {
-    return;
-    // return this.prisma.reaction.create({
-    //   data: { ...item.toObject() }
-    // });
+    const {id, ...entityData} = item.toObject();
+    return this.prisma.reaction.create({
+      data: { ...entityData}
+    });
   }
 
   public async destroy(id: number): Promise<void> {
@@ -41,13 +41,13 @@ export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity
     });
   }
 
-  public update(id: number, item: BlogReactionEntity): Promise<Reaction> {
-    return;
-    // return this.prisma.reaction.update({
-    //   where: {
-    //     id
-    //   },
-    //   data: { ...item.toObject(), id}
-    // });
+  public update(updateId: number, item: BlogReactionEntity): Promise<Reaction> {
+    const {id, postId, ...entityData} = item.toObject();
+    return this.prisma.reaction.update({
+      where: {
+        id: updateId
+      },
+      data: { ...entityData}
+    });
   }
 }

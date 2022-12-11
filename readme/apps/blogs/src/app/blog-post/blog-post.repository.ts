@@ -3,19 +3,24 @@ import { BlogPostEntity } from './blog-post.entity';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import {Post} from '@readme/shared-types';
+import {PostQuery} from '../post/query/post.query';
 
 @Injectable()
 export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number, Post> {
   constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: BlogPostEntity): Promise<Post> {
-    const entityData = item.toObject();
+    const {id, ...entityData} = item.toObject();
     return this.prisma.post.create({
       data: {
-        id: null,
         ...entityData,
+        reactions: {
+          connect: [...entityData.reactions]
+        }
       },
-      // reactions: { connect: { id: entityData.id } },
+      include: {
+        reactions: true,
+    }
     });
   }
 
@@ -35,23 +40,20 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
     });
   }
 
-  public find(ids: number[] = []): Promise<Post[]> {
+  public find({limit, sortDirection, page}: PostQuery): Promise<Post[]> {
     return this.prisma.post.findMany({
-      where: {
-        id: {
-          in: ids.length > 0 ? ids : undefined
-        }
-      }
+      include: {
+        reactions: true,
+      },
     });
   }
 
   public update(id: number, item: BlogPostEntity): Promise<Post> {
-    return;
-    // return this.prisma.post.update({
-    //   where: {
-    //     id
-    //   },
-    //   data: { ...item.toObject(), id}
-    // });
+    return this.prisma.post.update({
+      where: {
+        id
+      },
+      data: { ...item.toObject(), id}
+    });
   }
 }

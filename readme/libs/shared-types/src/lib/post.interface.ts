@@ -5,7 +5,7 @@ export interface Post {
   id?: number;
   idOriginal?: number;
   isRepost?: boolean;
-  postType?: PostTypeEnum;
+  postType?: string;
   name?: string;
   author?: string;
   date?: Date;

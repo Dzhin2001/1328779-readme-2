@@ -1,9 +1,9 @@
-import {Reaction, ReactionTypeEnum} from '@readme/shared-types';
+import { Reaction} from '@readme/shared-types';
 import {Entity} from '@readme/core';
 
 export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction {
   public id: number;
-  public type: ReactionTypeEnum;
+  public type: string;
   public userId: string;
   public postId: number;
   public text: string;
@@ -19,7 +19,6 @@ export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction 
   }
 
   public fillEntity(blogReaction: Reaction): void {
-    // this.id = blogReaction.id;
     this.type = blogReaction.type;
     this.userId = blogReaction.userId;
     this.postId = blogReaction.postId;

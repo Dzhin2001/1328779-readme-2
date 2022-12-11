@@ -23,4 +23,11 @@ export class LikeRdo {
   @Expose()
   public userId: String;
 
+  @ApiProperty({
+    description: 'Deletion flag',
+    example: 'true/false'
+  })
+  @Expose()
+  public isDelete: boolean;
+
 }

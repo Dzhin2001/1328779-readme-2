@@ -1,11 +1,11 @@
-import {Post, PostTypeEnum, Reaction} from '@readme/shared-types';
+import {Post, Reaction} from '@readme/shared-types';
 import { Entity } from '@readme/core';
 
 export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public id: number;
   public idOriginal: number;
   public isRepost: boolean;
-  public postType: PostTypeEnum;
+  public postType: string;
   public name: string;
   public author: string;
   public date: Date;
@@ -28,12 +28,11 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public toObject():BlogPostEntity {
     return {
       ...this
-      // ,reactions: this.reactions.map(({id}) => ({id}))
+      ,reactions: this.reactions.map(({id}) => ({id}))
     };
   }
 
   public fillEntity(blogPost: Post): void {
-    // this.id = blogPost.id;
     this.idOriginal = blogPost.idOriginal;
     this.isRepost = blogPost.isRepost;
     this.postType = blogPost.postType;
@@ -50,6 +49,6 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
     this.linkText = blogPost.linkText;
     this.linkURL = blogPost.linkURL;
     this.createdAt = new Date();
-    this.reactions = [...blogPost.reactions];
+    this.reactions = [];
   }
 }
