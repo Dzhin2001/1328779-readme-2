@@ -6,15 +6,15 @@ export class CommentRdo {
     description: 'The uniq comment ID',
     example: '13'
   })
-  @Expose({ name: '_id'})
-  public id: string;
+  @Expose()
+  public id: number;
 
   @ApiProperty({
     description: 'Post id',
-    example: 'id12345678'
+    example: '12345678'
   })
   @Expose()
-  public postId: string;
+  public postId: number;
 
   @ApiProperty({
     description: 'UserId',
@@ -23,11 +23,17 @@ export class CommentRdo {
   @Expose()
   public userId: String;
 
-
   @ApiProperty({
     description: 'Text of comment',
     example: 'Its my first comment. ...'
   })
+  @Expose()
   public text: string;
 
+  @ApiProperty({
+    description: 'Deletion flag',
+    example: 'true/false'
+  })
+  @Expose()
+  public isDelete: boolean;
 }

@@ -4,19 +4,17 @@ import { CommentModule } from './comment/comment.module';
 import { SubscribeModule } from './subscribe/subscribe.module';
 import { LikeModule } from './like/like.module';
 import { PostModule } from './post/post.module';
-import { BlogCommentModule } from './blog-comment/blog-comment.module';
-import { BlogLikeModule } from './blog-like/blog-like.module';
 import { BlogReactionModule } from './blog-reaction/blog-reaction.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
+    PrismaModule,
     CommentModule,
     SubscribeModule,
     LikeModule,
     PostModule,
     BlogPostModule,
-    BlogCommentModule,
-    BlogLikeModule,
     BlogReactionModule,
   ],
   controllers: [],

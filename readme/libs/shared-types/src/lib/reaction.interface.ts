@@ -1,10 +1,12 @@
 import {ReactionTypeEnum} from './reaction-type.enum';
+import {Post} from './post.interface';
 
 export interface Reaction {
-  _id?: string;
-  type?: ReactionTypeEnum;
+  id?: number;
+  type?: string;
   userId?: string;
-  postId?: string;
+  postId?: number;
   text?: string;
   isDelete?: boolean;
+  createdAt?: Date;
 }

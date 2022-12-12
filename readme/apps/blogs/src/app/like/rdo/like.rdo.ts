@@ -6,15 +6,15 @@ export class LikeRdo {
     description: 'The uniq like ID',
     example: '13'
   })
-  @Expose({ name: '_id'})
-  public id: string;
+  @Expose()
+  public id: number;
 
   @ApiProperty({
     description: 'Post id',
-    example: 'id12345678'
+    example: '12345678'
   })
   @Expose()
-  public postId: string;
+  public postId: number;
 
   @ApiProperty({
     description: 'UserId',
@@ -22,5 +22,12 @@ export class LikeRdo {
   })
   @Expose()
   public userId: String;
+
+  @ApiProperty({
+    description: 'Deletion flag',
+    example: 'true/false'
+  })
+  @Expose()
+  public isDelete: boolean;
 
 }

@@ -1,13 +1,13 @@
-import {Post, PostTypeEnum} from '@readme/shared-types';
+import {Post, Reaction} from '@readme/shared-types';
+import { Entity } from '@readme/core';
 
-export class BlogPostEntity implements Post {
-  public _id: string;
-  public idOriginal: string;
+export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
+  public id: number;
+  public idOriginal: number;
   public isRepost: boolean;
-  public postType: PostTypeEnum;
+  public postType: string;
   public name: string;
   public author: string;
-  public authorOriginal: string;
   public date: Date;
   public tags: string;
   public textPreview: string;
@@ -18,24 +18,27 @@ export class BlogPostEntity implements Post {
   public photoURL: string;
   public linkText: string;
   public linkURL: string;
+  public createdAt: Date;
+  public reactions: Reaction[];
 
   constructor(blogPost: Post) {
     this.fillEntity(blogPost);
   }
 
-  public toObject() {
-    return {...this};
+  public toObject():BlogPostEntity {
+    return {
+      ...this
+      ,reactions: this.reactions.map(({id}) => ({id}))
+    };
   }
 
-  public fillEntity(blogPost: Post) {
-    this._id = blogPost._id;
+  public fillEntity(blogPost: Post): void {
     this.idOriginal = blogPost.idOriginal;
     this.isRepost = blogPost.isRepost;
     this.postType = blogPost.postType;
     this.name = blogPost.name;
     this.author = blogPost.author;
-    this.authorOriginal = blogPost.authorOriginal;
-    this.date = blogPost.date;
+    this.date = new Date();
     this.tags = blogPost.tags;
     this.textPreview = blogPost.textPreview;
     this.text = blogPost.text;
@@ -45,5 +48,7 @@ export class BlogPostEntity implements Post {
     this.photoURL = blogPost.photoURL;
     this.linkText = blogPost.linkText;
     this.linkURL = blogPost.linkURL;
+    this.createdAt = new Date();
+    this.reactions = [];
   }
 }
