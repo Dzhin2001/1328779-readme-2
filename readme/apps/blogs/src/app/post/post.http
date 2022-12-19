@@ -6,7 +6,7 @@ GET http://localhost:3334/api/posts/5 HTTP/1.1
 ###
 
 # Get all posts
-GET http://localhost:3334/api/posts HTTP/1.1
+GET http://localhost:3334/api/posts?page=1&postTypes=photo,text HTTP/1.1
 
 # Create a new video post
 POST http://localhost:3334/api/posts/video HTTP/1.1

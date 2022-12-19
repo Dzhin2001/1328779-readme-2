@@ -28,7 +28,9 @@ export class PostRdo {
     description: 'Type of post',
     example: 'Video'
   })
-  @Expose()
+  @Expose({
+    name: 'postType'
+  })
   public type: PostTypeEnum;
 
   @ApiProperty({
