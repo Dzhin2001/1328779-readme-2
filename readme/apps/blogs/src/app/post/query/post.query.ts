@@ -1,4 +1,4 @@
-import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsIn, IsNumber, IsArray, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { DEFAULT_POST_COUNT_LIMIT, DEFAULT_SORT_DIRECTION } from '../post.constant';
 
@@ -7,6 +7,11 @@ export class PostQuery {
   @IsNumber()
   @IsOptional()
   public limit = DEFAULT_POST_COUNT_LIMIT;
+
+  @Transform(({ value }) => value.split(',').map((postType) => postType))
+  @IsArray({})
+  @IsOptional()
+  public postTypes?: string[];
 
   @IsIn(['asc', 'desc'])
   @IsOptional()

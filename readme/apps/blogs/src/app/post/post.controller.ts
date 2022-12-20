@@ -20,7 +20,7 @@ export class PostController {
 
   @Get('/:id')
   async show(@Param('id') id: number) {
-    const post = await this.postService.getPost(+id);
+    const post = await this.postService.getPost(id);
     return fillObject(PostRdo, post);
   }
 

@@ -15,7 +15,7 @@ export class CommentController {
 
   @Get('/:id')
   async show(@Param('id') id: number) {
-    const comment = await this.commentService.getComment(+id);
+    const comment = await this.commentService.getComment(id);
     return fillObject(CommentRdo, comment);
   }
 
@@ -41,7 +41,7 @@ export class CommentController {
     description: 'The comment has been successfully deleted.'
   })
   async delete(@Param('id') id: number) {
-    const comment = await this.commentService.deleteComment(+id);
+    const comment = await this.commentService.deleteComment(id);
     return fillObject(CommentRdo, comment);
   }
 }

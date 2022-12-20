@@ -14,7 +14,7 @@ export class LikeController {
 
   @Get('/:id')
   async show(@Param('id') id: number) {
-    const like = await this.likeService.getLike(+id);
+    const like = await this.likeService.getLike(id);
     return fillObject(LikeRdo, like);
   }
 
