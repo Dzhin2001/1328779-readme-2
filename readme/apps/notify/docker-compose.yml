@@ -16,10 +16,11 @@ services:
       retries: 5
 
   fakesmtp:
-    image: gessnerfl/fake-smtp-server
-    container_name: "fakesmtp"
-    hostname: "fakesmtp"
+    image: gessnerfl/fake-smtp-server:1.10.4
+    container_name: fakesmtp
+    hostname: fakesmtp
     ports:
       - "5025:5025"
       - "1083:5080"
+      - "5081:5081"
 
