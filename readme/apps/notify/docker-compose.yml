@@ -1,0 +1,26 @@
+version: '3.5'
+services:
+  rabbitmq:
+    image:  rabbitmq:3.11-management
+    container_name: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "1084:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: test
+    healthcheck:
+      test: radditmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  fakesmtp:
+    image: gessnerfl/fake-smtp-server:1.10.4
+    container_name: fakesmtp
+    hostname: fakesmtp
+    ports:
+      - "5025:5025"
+      - "1083:5080"
+      - "5081:5081"
+

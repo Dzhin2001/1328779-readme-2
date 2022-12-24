@@ -1,0 +1,7 @@
+From: "Diman" <diman@mail.ru>
+To: "Keks" <keks@mail.ru>
+Subject: This is the mail title
+Date: Thu, 23 Dec 2022
+Content-Type: text/plain;charset="utf-8"
+
+This is the message content
