@@ -6,3 +6,5 @@ export * from './lib/subscribe.interface';
 export * from './lib/user.interface';
 export * from './lib/reaction.interface';
 export * from './lib/reaction-type.enum';
+export * from './lib/subscriber.interface';
+export * from './lib/command-event.enum';

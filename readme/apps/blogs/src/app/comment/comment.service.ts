@@ -27,7 +27,6 @@ export class CommentService {
   async deleteComment(id: number ) {
     const reaction = await this.blogReactionRepository.findById(id);
     const reactionEntity = new BlogReactionEntity({...reaction, isDelete: true});
-    console.log(JSON.stringify(reactionEntity.toObject()));
     return this.blogReactionRepository.update(reaction.id, reactionEntity);
   }
 }

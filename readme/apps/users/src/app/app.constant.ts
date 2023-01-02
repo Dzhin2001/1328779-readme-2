@@ -1,4 +1,4 @@
-export const ENV_FILE_PATH = 'environments/.users.env';
+export const USERS_ENV_FILE_PATH = 'environments/.users.env';
 
 export enum EnvValidationMessage {
   DBHostRequired = 'MongoDB host is required',
