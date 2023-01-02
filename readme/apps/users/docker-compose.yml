@@ -9,11 +9,11 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: test
       MONGO_INITDB_DATABASE: blogs-users
     ports:
-      - 2717:27017
+      - 27016:27017
     volumes:
       - ./db:/data/db
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/typoteka-users --quiet
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/blogs-users --quiet
       interval: 10s
       timeout: 10s
       retries: 5
