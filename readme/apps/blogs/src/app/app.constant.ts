@@ -1,1 +1,1 @@
-export const BLOGS_ENV_FILE_PATH = 'environments/.env';
+export const BLOGS_ENV_FILE_PATH = 'environments/.blogs.env';

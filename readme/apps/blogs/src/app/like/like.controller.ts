@@ -4,7 +4,6 @@ import {ApiResponse} from '@nestjs/swagger';
 import {fillObject} from '@readme/core';
 import {CreateLikeDto} from './dto/create-like.dto';
 import {LikeRdo} from './rdo/like.rdo';
-import {DeleteLikeDto} from "./dto/delete-like.dto";
 
 @Controller('likes')
 export class LikeController {
@@ -34,13 +33,13 @@ export class LikeController {
     return fillObject(LikeRdo, newLike);
   }
 
-  @Delete('/')
+  @Delete('/:id')
   @ApiResponse({
     status: HttpStatus.ACCEPTED,
     description: 'The like has been successfully deleted.'
   })
-  async delete(@Body() dto: DeleteLikeDto) {
-    const like = await this.likeService.deleteLike(dto);
+  async delete(@Param('id') id: number) {
+    const like = await this.likeService.deleteLike(id);
     return fillObject(LikeRdo, like);
   }
 }

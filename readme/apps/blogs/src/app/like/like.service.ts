@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import {BlogReactionEntity} from '../blog-reaction/blog-reaction.entity';
 import {BlogReactionRepository} from '../blog-reaction/blog-reaction.repository';
 import {CreateLikeDto} from './dto/create-like.dto';
-import {DeleteLikeDto} from './dto/delete-like.dto';
 import {Post, ReactionTypeEnum} from '@readme/shared-types';
 
 @Injectable()
@@ -24,9 +23,8 @@ export class LikeService {
     return this.blogReactionRepository.create(reactionEntity);
   }
 
-  async deleteLike(dto: DeleteLikeDto ) {
-    const {id} = dto;
-    const reaction = await this.blogReactionRepository.findById(+id);
+  async deleteLike(id: number ) {
+    const reaction = await this.blogReactionRepository.findById(id);
     const reactionEntity = new BlogReactionEntity({...reaction, isDelete: false});
     return this.blogReactionRepository.update(reaction.id, reactionEntity);
   }

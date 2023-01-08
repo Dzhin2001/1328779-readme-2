@@ -6,6 +6,8 @@ import { LikeModule } from './like/like.module';
 import { PostModule } from './post/post.module';
 import { BlogReactionModule } from './blog-reaction/blog-reaction.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
+import { BLOGS_ENV_FILE_PATH } from './app.constant';
 
 @Module({
   imports: [
@@ -16,6 +18,11 @@ import { PrismaModule } from './prisma/prisma.module';
     PostModule,
     BlogPostModule,
     BlogReactionModule,
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+      envFilePath: BLOGS_ENV_FILE_PATH
+    }),
   ],
   controllers: [],
   providers: [],

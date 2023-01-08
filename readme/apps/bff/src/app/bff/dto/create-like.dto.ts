@@ -1,10 +1,10 @@
 import {ApiProperty} from '@nestjs/swagger';
 
-export class DeleteLikeDto {
+export class CreateLikeDto {
   @ApiProperty({
-    description: 'id ',
+    description: 'post id ',
     example: '12345678'
   })
-  public id: number;
+  public idPost: number;
 
 }
