@@ -1,10 +1,23 @@
-import {Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Headers, Delete, Query, Req} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Headers,
+  Delete,
+  HttpException,
+  Req,
+  Res
+} from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {BffService} from './bff.service';
 import {CreateUserDto} from './dto/create-user.dto';
 import {UserRdo} from './rdo/user.rdo';
 import {HttpService} from '@nestjs/axios';
-import {ServiceUrl} from './bff.constant';
+import {AUTH_ONLY_ANONYMOUS, ServiceUrl} from './bff.constant';
 import {LoggedUserRdo} from './rdo/logged-user.rdo';
 import {LoginUserDto} from './dto/login-user.dto';
 import {ChangePasswordUserDto} from './dto/change-password-user.dto';
@@ -35,7 +48,18 @@ export class BffController {
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.'
   })
-  async register(@Body() dto: CreateUserDto) {
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: 'Available Only for anonymous user.'
+  })
+  async register(
+    @Body() dto: CreateUserDto,
+    @Headers('Authorization') token: string
+  ) {
+    const auth = await this.bffService.bffValidateToken(token);
+    if (auth.status) {
+      throw new HttpException(AUTH_ONLY_ANONYMOUS, HttpStatus.FORBIDDEN);
+    }
     return this.bffService.bffPost<UserRdo>(ServiceUrl.Register(), dto);
   }
 
@@ -50,8 +74,10 @@ export class BffController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Password or Login is wrong.',
   })
-  async login(@Body() dto: LoginUserDto) {
-    return this.bffService.bffPost<LoggedUserRdo>(ServiceUrl.Login(), dto);
+  async login(
+    @Body() dto: LoginUserDto
+  ) {
+    return await this.bffService.bffPost<LoggedUserRdo>(ServiceUrl.Login(), dto);
   }
 
   @Get('user/:id')
@@ -68,7 +94,7 @@ export class BffController {
     @Param('id') id: string,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffGet<UserRdo>(`${ServiceUrl.User()}/${id}`, token);
+    return await this.bffService.bffGet<UserRdo>(`${ServiceUrl.User()}/${id}`, token);
   }
 
   @Post('password')
@@ -86,18 +112,24 @@ export class BffController {
     @Body() dto: ChangePasswordUserDto,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffPost<UserRdo>(ServiceUrl.Password(), dto, token);
+    return await this.bffService.bffPost<UserRdo>(ServiceUrl.Password(), dto, token);
   }
+
+  @Get('avatar/:imgpath')
+  async seeUploadedFile(@Param('imgpath') imgpath) {
+    return await this.bffService.bffGetFile(`${ServiceUrl.Avatar()}/${imgpath}`);
+  }
+
 
 
   @Get('likes/:id')
   async like(@Param('id') id: number) {
-    return this.bffService.bffGet<LikeRdo>(`${ServiceUrl.Likes()}/${id}`);
+    return await this.bffService.bffGet<LikeRdo>(`${ServiceUrl.Likes()}/${id}`);
   }
 
   @Get('likes')
   async likes() {
-    return this.bffService.bffGet<LikeRdo>(ServiceUrl.Likes());
+    return await this.bffService.bffGet<LikeRdo>(ServiceUrl.Likes());
   }
 
   @Post('likes')
@@ -106,7 +138,7 @@ export class BffController {
     description: 'The new like has been successfully created.'
   })
   async createLike(@Body() dto: CreateLikeDto) {
-    return this.bffService.bffPost<LikeRdo>(ServiceUrl.Likes(), dto);
+    return await this.bffService.bffPost<LikeRdo>(ServiceUrl.Likes(), dto);
   }
 
   @Delete('likes/:id')
@@ -115,18 +147,17 @@ export class BffController {
     description: 'The like has been successfully deleted.'
   })
   async deleteLike(@Param('id') id: number) {
-    return this.bffService.bffDelete<LikeRdo>(`${ServiceUrl.Likes()}/${id}`);
+    return await this.bffService.bffDelete<LikeRdo>(`${ServiceUrl.Likes()}/${id}`);
   }
-
 
   @Get('comments/:id')
   async show(@Param('id') id: number) {
-    return this.bffService.bffGet<CommentRdo>(`${ServiceUrl.Comments()}/${id}`);
+    return await this.bffService.bffGet<CommentRdo>(`${ServiceUrl.Comments()}/${id}`);
   }
 
   @Get('comments')
   async index() {
-    return this.bffService.bffGet<CommentRdo>(ServiceUrl.Comments());
+    return await this.bffService.bffGet<CommentRdo>(ServiceUrl.Comments());
   }
 
   @Post('comments')
@@ -135,7 +166,7 @@ export class BffController {
     description: 'The comment has been successfully created.'
   })
   async create(@Body() dto: CreateCommentDto) {
-    return this.bffService.bffPost<CommentRdo>(ServiceUrl.Comments(), dto);
+    return await this.bffService.bffPost<CommentRdo>(ServiceUrl.Comments(), dto);
   }
 
   @Delete('comments/:id')
@@ -144,18 +175,18 @@ export class BffController {
     description: 'The comment has been successfully deleted.'
   })
   async delete(@Param('id') id: number) {
-    return this.bffService.bffDelete<CommentRdo>(`${ServiceUrl.Comments()}/${id}`);
+    return await this.bffService.bffDelete<CommentRdo>(`${ServiceUrl.Comments()}/${id}`);
   }
 
 
   @Get('posts/:id')
   async getPost(@Param('id') id: number) {
-    return this.bffService.bffGet<PostRdo>(`${ServiceUrl.Posts()}/${id}`);
+    return await this.bffService.bffGet<PostRdo>(`${ServiceUrl.Posts()}/${id}`);
   }
 
   @Get('posts')
   async getPosts(@Req() {url}: Request) {
-    return this.bffService.bffGet<PostRdo>(`${ServiceUrl.Posts()}${url.substring(url.indexOf('?'))}`);
+    return await this.bffService.bffGet<PostRdo>(`${ServiceUrl.Posts()}${url.substring(url.indexOf('?'))}`);
   }
 
   @Post('posts/video')
@@ -167,7 +198,7 @@ export class BffController {
     @Body() dto: CreateVideoDto,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/video`, dto, token);
+    return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/video`, dto, token);
   }
 
   @Post('posts/text')
@@ -179,7 +210,7 @@ export class BffController {
     @Body() dto: CreateTextDto,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/text`, dto, token);
+    return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/text`, dto, token);
   }
 
   @Post('posts/quote')
@@ -190,7 +221,7 @@ export class BffController {
   async createQuotePost(
     @Body() dto: CreateQuoteDto,
     @Headers('Authorization') token: string) {
-    return this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/quote`, dto, token);
+    return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/quote`, dto, token);
   }
 
   @Post('posts/photo')
@@ -202,7 +233,7 @@ export class BffController {
     @Body() dto: CreatePhotoDto,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/photo`, dto, token);
+    return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/photo`, dto, token);
   }
 
   @Post('posts/link')
@@ -214,7 +245,7 @@ export class BffController {
     @Body() dto: CreateLinkDto,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/link`, dto, token);
+    return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/link`, dto, token);
   }
 
   @Post('posts/repost')
@@ -226,6 +257,6 @@ export class BffController {
     @Body() dto: CreateRepostDto,
     @Headers('Authorization') token: string
   ) {
-    return this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/repost`, dto, token);
+    return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/repost`, dto, token);
   }
 }

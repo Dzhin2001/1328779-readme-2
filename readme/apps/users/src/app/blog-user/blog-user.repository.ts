@@ -18,23 +18,23 @@ export class BlogUserRepository implements CRUDRepository<BlogUserEntity, string
   }
 
   public async destroy(id: string): Promise<void> {
-    this.blogUserModel.deleteOne({id});
+    await this.blogUserModel.deleteOne({id});
   }
 
   public async findById(id: string): Promise<User | null> {
-    return this.blogUserModel
+    return await this.blogUserModel
       .findOne({id})
       .exec();
   }
 
   public async findByEmail(email: string): Promise<User | null> {
-    return this.blogUserModel
+    return await this.blogUserModel
       .findOne({email})
       .exec();
   }
 
   public async update(id: string, item: BlogUserEntity): Promise<User> {
-    return this.blogUserModel
+    return await this.blogUserModel
       .findByIdAndUpdate(id, item.toObject(), {new: true})
       .exec();
   }

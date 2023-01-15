@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import {HttpException, HttpStatus, Inject, Injectable, UnauthorizedException} from '@nestjs/common';
 import { CommandEvent, User } from '@readme/shared-types';
 import { BlogUserRepository } from '../blog-user/blog-user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -10,9 +10,11 @@ import {
   RABBITMQ_SERVICE,
 } from './auth.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
-import {ChangePasswordUserDto} from "./dto/change-password-user.dto";
+import {ChangePasswordUserDto} from './dto/change-password-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ClientProxy } from '@nestjs/microservices';
+import {UpdateUserDto} from './dto/update-user.dto';
+import {fillObject} from '@readme/core';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +38,7 @@ export class AuthService {
       .findByEmail(email);
 
     if (existUser) {
-      throw new Error(AUTH_USER_EXISTS);
+      throw new HttpException(AUTH_USER_EXISTS, HttpStatus.FORBIDDEN );
     }
 
     const userEntity = await new BlogUserEntity(blogUser)
@@ -88,12 +90,20 @@ export class AuthService {
 
     await blogUserEntity.setPassword(newPassword);
 
-    return this.blogUserRepository.update(blogUserEntity._id, blogUserEntity);
+    return await this.blogUserRepository.update(blogUserEntity._id, blogUserEntity);
   }
 
+  async updateById(userId: string, dto: User) {
+    const blogUserEntity = new BlogUserEntity(dto);
+    return await this.blogUserRepository.update(userId, blogUserEntity);
+  }
+
+  async getUserByEmail(email: string) {
+    return await this.blogUserRepository.findByEmail(email);
+  }
 
   async getUser(id: string) {
-    return this.blogUserRepository.findById(id);
+    return await this.blogUserRepository.findById(id);
   }
 
   async loginUser(user: User) {

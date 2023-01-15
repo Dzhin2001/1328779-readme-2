@@ -1,4 +1,3 @@
-import {PostTypeEnum} from './post-type.enum';
 import {Reaction} from './reaction.interface';
 
 export interface Post {
