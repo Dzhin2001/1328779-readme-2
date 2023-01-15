@@ -1,0 +1,14 @@
+version: '3.5'
+services:
+  readme.bff:
+    image: readme.bff
+    container_name: readme.bff.service
+    ports:
+      - 3336:3333
+    environment:
+      HOST: localhost
+      USERS_HOST: localhost
+      USERS_PORT: 3333
+      BLOGS_HOST: localhost
+      BLOGS_PORT: 3334
+      UPLOAD_DIR: upload
