@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Patch,
   Req,
   Res,
   UploadedFile,
@@ -27,6 +28,7 @@ import {diskStorage} from 'multer';
 import * as mime from 'mime-types'
 import {nanoid} from 'nanoid';
 import {User} from '@readme/shared-types';
+import {UpdateUserDto} from "./dto/update-user.dto";
 
 @ApiTags('auth')
 @Controller('auth')
@@ -42,6 +44,20 @@ export class AuthController {
   })
   async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
+    return fillObject(UserRdo, newUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'The user has been successfully updated.'
+  })
+  async update(
+    @Param('id', MongoidValidationPipe) id: string,
+    @Body() dto: User
+  ) {
+    const newUser = await this.authService.updateById(id, dto);
     return fillObject(UserRdo, newUser);
   }
 

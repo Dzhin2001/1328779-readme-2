@@ -50,9 +50,7 @@ export class BffService {
     dto: object,
     token?: string | undefined
   ) {
-    console.log(`BFF service - post - url=${url}`);
-    console.log(dto);
-    console.log(token);
+    //console.log(`BFF service - post - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .post<T>(
@@ -65,7 +63,27 @@ export class BffService {
             throw error.response.data;
           }),),
     );
-    console.log(data);
+    return data;
+  }
+
+  async bffPatch<T>(
+    url: string,
+    dto: object,
+    token?: string | undefined
+  ) {
+    //console.log(`BFF service - patch - url=${url}`);
+    const {data} = await firstValueFrom(
+      this.httpService
+        .patch<T>(
+          url,
+          dto,
+          token ? {headers: {'Authorization': token}} : null
+        )
+        .pipe(
+          catchError((error: AxiosError) => {
+            throw error.response.data;
+          }),),
+    );
     return data;
   }
 
@@ -73,8 +91,7 @@ export class BffService {
     url: string,
     token?: string | undefined
   ) {
-    console.log(`BFF service - delete - url=${url}`);
-    console.log(token);
+    //console.log(`BFF service - delete - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .delete<T>(
@@ -86,7 +103,6 @@ export class BffService {
             throw error.response.data;
           }),),
     );
-    console.log(data);
     return data;
   }
 
@@ -94,8 +110,7 @@ export class BffService {
     url: string,
     token?: string | undefined
   ) {
-    console.log(`BFF service - get - url=${url}`);
-    console.log(token);
+    //console.log(`BFF service - get - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .get<T>(
@@ -107,28 +122,7 @@ export class BffService {
             throw error.response.data;
           }),),
     );
-    console.log(data);
     return data;
   }
 
-  async bffGetFile(
-    url: string
-  ) {
-    console.log(`BFF service - get file - url=${url}`);
-    const res = await Axios({
-      method: "GET",
-      url,
-      responseType: "blob"
-    }).then((res: AxiosResponse<Blob>) => res);
-    // const {data} = await firstValueFrom(
-    //   this.httpService
-    //     .get(url, { responseType: 'blob'})
-    //     .pipe( map((result: AxiosResponse<Blob>) => {
-    //       return result;
-    //       })
-    //     )
-    // );
-    console.log(res);
-    return res.data;
-  }
 }

@@ -64,8 +64,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2I5ZjZmZ
 
 ## Отправка аватарки пользователю
 
-POST http://localhost:3336/api/bff/63c31301fc49b4b517c552a4/avatar HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3MzcxMTQzOCwiZXhwIjoxNjczNzcxNDM4fQ.FUD6l1s4Ugzud-0jPba11D9KJaAGyYMKISRcRMVSN7Q
+POST http://localhost:3336/api/bff/avatar/63c31301fc49b4b517c552a4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc1MTE1OSwiZXhwIjoxNjczOTY3MTU5fQ.iTMnr1TRIT7EEKl1OdexLAWDpPU0eBtcTua4WjhckZI
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW

@@ -1,0 +1,83 @@
+###
+
+# Get post by id
+GET http://localhost:3336/api/bff/posts/5 HTTP/1.1
+
+###
+
+# Get all posts
+GET http://localhost:3336/api/bff/posts?page=1&postTypes=photo HTTP/1.1
+
+###
+
+# Create a new video post
+POST http://localhost:3336/api/bff/posts/video HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "First video post",
+  "videoURL": "https://youtube.com/Keks",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/text HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "First text post",
+  "textReview": "Some preview text",
+  "text": "Тестовый пост ...",
+  "tags": "#monkey"
+
+}
+
+###
+POST http://localhost:3336/api/bff/posts/quote HTTP/1.1
+Content-Type: application/json
+
+{
+  "quoteText": "Текст цитаты",
+  "quoteAuthor": "Автор цитаты",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/photo HTTP/1.1
+Content-Type: application/json
+
+{
+  "photoURL": "myFace.jpeg",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/link HTTP/1.1
+Content-Type: application/json
+
+{
+  "linkText": "Описание ссылки",
+  "linkURL": "https://youtube.com",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/repost HTTP/1.1
+Content-Type: application/json
+
+{
+  "idOriginal": 1
+}
+
+###
+# Get post by ID
+GET http://localhost:3336/api/bff/posts/1 HTTP/1.1
+
+###
+
+# Get list of posts
+GET http://localhost:3336/api/bff/posts HTTP/1.1
+Content-Type: application/json
+
+###
+
