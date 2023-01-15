@@ -7,5 +7,11 @@ export class CreateRepostDto {
   })
   public idOriginal: number;
 
+  @ApiProperty({
+    description: 'Author of post',
+    example: 'Dimitar'
+  })
+  public author: string;
+
 }
 

@@ -65,7 +65,14 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       where: {
         id
       },
-      data: { ...item.toObject(), id}
+      include: {
+        reactions: true,
+      },
+      data: {
+        ...item.toObject(),
+        id,
+        reactions: { set: [...item.reactions] }
+      }
     });
   }
 }

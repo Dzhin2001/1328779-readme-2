@@ -1,4 +1,4 @@
-import {Body, Controller, HttpStatus, Param, Get, Post, Query} from '@nestjs/common';
+import {Body, Controller, HttpStatus, Param, Get, Post, Patch, Delete, Query} from '@nestjs/common';
 import {PostService} from './post.service';
 import {ApiResponse} from '@nestjs/swagger';
 import {fillObject} from '@readme/core';
@@ -11,6 +11,7 @@ import {CreateRepostDto} from './dto/create-repost.dto';
 import {PostRdo} from './rdo/post.rdo';
 import {PostTypeEnum} from '@readme/shared-types';
 import {PostQuery} from './query/post.query';
+import {UpdateDto} from "./dto/update.dto";
 
 @Controller('posts')
 export class PostController {
@@ -87,6 +88,41 @@ export class PostController {
   })
   async createRepost(@Body() dto: CreateRepostDto) {
     const newPost = await this.postService.createRepost(dto);
+    return fillObject(PostRdo, newPost);
+  }
+
+  @Patch(':id')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The new post has been successfully updated.'
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: 'User not allowed to update post.'
+  })
+  async update(
+    @Param('id') id: number,
+    @Body() dto: UpdateDto
+  ) {
+    const newPost = await this.postService.updateAndValidate(id, dto);
+    return fillObject(PostRdo, newPost);
+  }
+
+  @Delete(':id/:author')
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The new post has been successfully deleted.'
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: 'User not allowed to delete post.'
+  })
+  async delete(
+    @Param('id') id: number,
+    @Param('author') author: string,
+    @Body() dto: UpdateDto
+  ) {
+    const newPost = await this.postService.deleteAndValidate(id, author);
     return fillObject(PostRdo, newPost);
   }
 }

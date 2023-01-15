@@ -10,6 +10,7 @@ async function fillDb() {
     create: {
       idOriginal: 1,
       isRepost: false,
+      isDraft: false,
       postType: 'text',
       name: 'Тестовый пост',
       author: 'Bear',

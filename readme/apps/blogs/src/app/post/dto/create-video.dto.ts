@@ -19,5 +19,11 @@ export class CreateVideoDto {
   })
   public tags: string;
 
+  @ApiProperty({
+    description: 'Author of post',
+    example: 'Dimitar'
+  })
+  public author: string;
+
 }
 

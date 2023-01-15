@@ -20,9 +20,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0O
 
 ###
 
-# Validate TOKEN
+# Validate TOKEN and get user
 POST http://localhost:3333/api/auth/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc1MTE1OSwiZXhwIjoxNjczOTY3MTU5fQ.iTMnr1TRIT7EEKl1OdexLAWDpPU0eBtcTua4WjhckZI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
 
 ###
 

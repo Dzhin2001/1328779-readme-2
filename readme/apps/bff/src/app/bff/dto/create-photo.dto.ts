@@ -13,5 +13,11 @@ export class CreatePhotoDto {
   })
   public tags: string;
 
+  @ApiProperty({
+    description: 'Author of post',
+    example: 'Dimitar'
+  })
+  public author: string;
+
 }
 
