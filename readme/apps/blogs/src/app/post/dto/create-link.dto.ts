@@ -1,4 +1,5 @@
 import {ApiProperty} from '@nestjs/swagger';
+import {Expose} from "class-transformer";
 
 export class CreateLinkDto {
   @ApiProperty({
@@ -19,5 +20,10 @@ export class CreateLinkDto {
   })
   public tags: string;
 
+  @ApiProperty({
+    description: 'Author of post',
+    example: 'Dimitar'
+  })
+  public author: string;
 }
 

@@ -1,0 +1,81 @@
+# Create a new user
+POST http://localhost:3336/api/bff/register HTTP/1.1
+Authorization: Bearer вeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3MzcyMTk3NywiZXhwIjoxNjczOTM3OTc3fQ.GdSRPLs_uS-E9ZMSdQf7lsi-qZEWuJ_tN928RnLARws
+Content-Type: application/json
+
+{
+  "email": "user30@notfound.local",
+  "userName": "Meks30",
+  "password": "123456"
+}
+
+###
+
+# Get user by ID
+GET http://localhost:3336/api/bff/user/63b9c26211267ffa19db7c1f HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2I5ZjZmZWE5ZGE5MWM3MzAwZWQ2ZWUiLCJlbWFpbCI6InVzZXIxNUBub3Rmb3VuZC5sb2NhbCIsIm5hbWUiOiJNZWtzMTUiLCJpYXQiOjE2NzMxMzE3OTAsImV4cCI6MTY3MzEzMTg1MH0.c790hOmR7KLrW9VnJ2OMQ-_9Pg9Hb_4IEX6LsH3RHWQ
+
+###
+# Login user by email and password
+POST http://localhost:3336/api/bff/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user15@notfound.local",
+  "password": "123456"
+}
+
+###
+
+# Login user by email and password
+POST http://localhost:3336/api/bff/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user15@notfound.local",
+  "password": "12345678"
+}
+
+###
+
+# Change user password
+POST http://localhost:3336/api/bff/password HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3MTQ4NjAzMCwiZXhwIjoxNjcxNDg2MDkwfQ.XVXCNEkK-AwcxVE_JMPga67ioJ3VF0kfSsbg1_TrRS0
+
+{
+  "email": "user@notfound.local",
+  "password": "12345678",
+  "newPassword": "123456"
+}
+
+###
+# Change user password
+POST http://localhost:3336/api/bff/password HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2I5ZjZmZWE5ZGE5MWM3MzAwZWQ2ZWUiLCJlbWFpbCI6InVzZXIxNUBub3Rmb3VuZC5sb2NhbCIsIm5hbWUiOiJNZWtzMTUiLCJpYXQiOjE2NzMxMzE4MjMsImV4cCI6MTY3MzEzMTg4M30.NL9YsZFXtiYU28yHXC1SUS0zq72QOC5EDUQPUyvzhSA
+
+{
+  "email": "user15@notfound.local",
+  "password": "123456",
+  "newPassword": "12345678"
+}
+###
+
+## Отправка аватарки пользователю
+
+POST http://localhost:3336/api/bff/avatar/63c31301fc49b4b517c552a4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc1MTE1OSwiZXhwIjoxNjczOTY3MTU5fQ.iTMnr1TRIT7EEKl1OdexLAWDpPU0eBtcTua4WjhckZI
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="Avatar.png"
+Content-Type: image/png
+
+< /Users/SuperDzhin/Downloads/Avatar.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+###
+
+GET http://localhost:3336/api/bff/avatar/IJZbTItOTXn2ZFem5_wxd.png
+
+###

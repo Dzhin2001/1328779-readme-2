@@ -5,6 +5,7 @@ export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction 
   public id: number;
   public type: string;
   public userId: string;
+  public author: string;
   public postId: number;
   public text: string;
   public isDelete: boolean;
@@ -21,6 +22,7 @@ export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction 
   public fillEntity(blogReaction: Reaction): void {
     this.type = blogReaction.type;
     this.userId = blogReaction.userId;
+    this.author = blogReaction.author;
     this.postId = blogReaction.postId;
     this.text = blogReaction.text;
     this.isDelete = blogReaction.isDelete;

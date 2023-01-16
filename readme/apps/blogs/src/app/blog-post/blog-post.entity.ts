@@ -5,6 +5,7 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public id: number;
   public idOriginal: number;
   public isRepost: boolean;
+  public isDraft: boolean;
   public postType: string;
   public name: string;
   public author: string;
@@ -35,6 +36,7 @@ export class BlogPostEntity implements Entity<BlogPostEntity>, Post {
   public fillEntity(blogPost: Post): void {
     this.idOriginal = blogPost.idOriginal;
     this.isRepost = blogPost.isRepost;
+    this.isDraft = blogPost.isDraft;
     this.postType = blogPost.postType;
     this.name = blogPost.name;
     this.author = blogPost.author;

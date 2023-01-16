@@ -1,4 +1,18 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards  } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Patch,
+  Req,
+  Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors
+} from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { fillObject } from '@readme/core';
 import { AuthService } from './auth.service';
@@ -9,6 +23,12 @@ import { UserRdo } from './rdo/user.rdo';
 import {ChangePasswordUserDto} from './dto/change-password-user.dto';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import {FileInterceptor} from '@nestjs/platform-express';
+import {diskStorage} from 'multer';
+import * as mime from 'mime-types'
+import {nanoid} from 'nanoid';
+import {User} from '@readme/shared-types';
+import {UpdateUserDto} from "./dto/update-user.dto";
 
 @ApiTags('auth')
 @Controller('auth')
@@ -24,6 +44,20 @@ export class AuthController {
   })
   async create(@Body() dto: CreateUserDto) {
     const newUser = await this.authService.register(dto);
+    return fillObject(UserRdo, newUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  @ApiResponse({
+    status: HttpStatus.ACCEPTED,
+    description: 'The user has been successfully updated.'
+  })
+  async update(
+    @Param('id', MongoidValidationPipe) id: string,
+    @Body() dto: User
+  ) {
+    const newUser = await this.authService.updateById(id, dto);
     return fillObject(UserRdo, newUser);
   }
 
@@ -44,6 +78,19 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Post('')
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'User found'
+  })
+  async validate(@Req() request: Request | any) {
+    const {user} = request;
+    const existUser = this.authService.getUserByEmail(user?.email);
+    return fillObject(UserRdo, existUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiResponse({
     type: UserRdo,
@@ -53,6 +100,34 @@ export class AuthController {
   async show(@Param('id', MongoidValidationPipe) id: string) {
     const existUser = await this.authService.getUser(id);
     return fillObject(UserRdo, existUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('avatar/:id')
+  @UseInterceptors(FileInterceptor('avatar', {
+    storage: diskStorage({
+      destination: './upload',
+      filename: (_req, file, callback) => {
+
+        const extension = mime.extension(file.mimetype);
+        const filename = nanoid();
+
+        callback(null, `${filename}.${extension}`);
+      }
+    })
+  }))
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'The new user has been successfully created.'
+  })
+  async avatar(@Param('id', MongoidValidationPipe) id: string, @UploadedFile() file) {
+    const updatedUser = await this.authService.updateById(id, {avatar: file.filename} as User);
+    return fillObject(UserRdo, updatedUser);
+  }
+
+  @Get('avatar/:imgpath')
+  seeUploadedFile(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './upload' });
   }
 
   @UseGuards(JwtAuthGuard)

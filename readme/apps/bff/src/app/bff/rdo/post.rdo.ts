@@ -1,6 +1,6 @@
 import {Expose} from 'class-transformer';
 import {ApiProperty} from '@nestjs/swagger';
-import {PostTypeEnum} from "@readme/shared-types";
+import {PostTypeEnum} from '@readme/shared-types';
 
 export class PostRdo {
   @ApiProperty({
@@ -16,6 +16,13 @@ export class PostRdo {
   })
   @Expose()
   public idOriginal: number;
+
+  @ApiProperty({
+    description: 'Draft flag',
+    example: 'true'
+  })
+  @Expose()
+  public isDraft: String;
 
   @ApiProperty({
     description: 'Repost flag',
@@ -72,42 +79,49 @@ export class PostRdo {
     description: 'Abstract of post',
     example: 'Small text'
   })
+  @Expose()
   public textPreview: string;
 
   @ApiProperty({
     description: 'Text of post',
     example: 'It is my first post. ...'
   })
+  @Expose()
   public text: string;
 
   @ApiProperty({
     description: 'Text of quote',
     example: 'learn learn learn'
   })
+  @Expose()
   public quoteText: string;
 
   @ApiProperty({
     description: 'Author of quote',
     example: 'Lenin'
   })
+  @Expose()
   public quoteAuthor: string;
 
   @ApiProperty({
     description: 'Photo link',
     example: 'image.jpg'
   })
+  @Expose()
   public photoURL: string;
 
   @ApiProperty({
     description: 'Link description',
     example: 'Monkey learn JS ..'
   })
+  @Expose()
   public linkText: string;
 
   @ApiProperty({
     description: 'Link URL',
     example: 'http://google.com/monkey'
   })
+  @Expose()
   public linkURL: string;
 
 }

@@ -1,0 +1,108 @@
+###
+
+# Create a new video post
+POST http://localhost:3336/api/bff/posts/video HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "name": "First video post",
+  "videoURL": "https://youtube.com/Keks",
+  "tags": "#monkey"
+
+}
+
+###
+POST http://localhost:3336/api/bff/posts/text HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "name": "First text post",
+  "textReview": "Some preview text",
+  "text": "Тестовый пост ...",
+  "tags": "#monkey"
+
+}
+
+###
+POST http://localhost:3336/api/bff/posts/quote HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "quoteText": "Текст цитаты",
+  "quoteAuthor": "Автор цитаты",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/photo HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "photoURL": "myFace.jpeg",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/link HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "linkText": "Описание ссылки",
+  "linkURL": "https://youtube.com",
+  "tags": "#monkey"
+}
+
+###
+POST http://localhost:3336/api/bff/posts/repost HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "idOriginal": 1
+}
+
+###
+PATCH http://localhost:3336/api/bff/posts/8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: application/json
+
+{
+  "name": "2First text post",
+  "textReview": "Some preview text",
+  "text": "Тестовый пост ...",
+  "tags": "#monkey"
+}
+
+###
+DELETE http://localhost:3336/api/bff/posts/20 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+
+###
+## Отправка фото
+
+PATCH http://localhost:3336/api/bff/posts/8/photo HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2EwZDk0OTc3YTQ5MGIxMDZlODdlNDMiLCJlbWFpbCI6Im1la3NAbm90Zm91bmQubG9jYWwiLCJuYW1lIjoiTWVrcyIsImlhdCI6MTY3Mzc5MjAzNSwiZXhwIjoxNjc0MDA4MDM1fQ.UNEzRybmF3jf1mM4eI4Q8egLa-jnvt_2FIhj5i7QvA4
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="Avatar.png"
+Content-Type: image/png
+
+< /Users/SuperDzhin/Downloads/Avatar.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+###
+
+GET http://localhost:3336/api/bff/posts/photo/qaHFMdqmBRGF0tV4oZCBH.png
+
+###
+
+###
+# Get post by ID
+GET http://localhost:3336/api/bff/posts/1 HTTP/1.1
+
+###

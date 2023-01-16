@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { BffController } from './bff.controller';
+import { BffUserController } from './bff.user.controller';
+import { BffPostController } from './bff.post.controller';
 import { BffService } from './bff.service';
 import {ConfigService} from '@nestjs/config';
-import {ClientsModule} from '@nestjs/microservices';
-import {RABBITMQ_SERVICE} from './bff.constant';
-import {getRabbitMqConfig} from '../../../config/rabbitmq.config';
+
 import {HttpModule} from '@nestjs/axios';
 
 @Module({
@@ -14,7 +14,11 @@ import {HttpModule} from '@nestjs/axios';
       maxRedirects: 5,
     }),
   ],
-  controllers: [BffController],
+  controllers: [
+    BffController,
+    BffUserController,
+    BffPostController
+  ],
   providers: [BffService],
 })
 export class BffModule {}

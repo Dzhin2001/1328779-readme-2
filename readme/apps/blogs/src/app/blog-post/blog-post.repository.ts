@@ -35,16 +35,21 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
   public findById(id: number): Promise<Post | null> {
     return this.prisma.post.findFirst({
       where: {
-        id
+        id,
       }
     });
   }
 
-  public find({limit, postTypes, sortDirection, page}: PostQuery): Promise<Post[]> {
+  public find({limit, idOriginal, name, postTypes, sortDirection, page}: PostQuery): Promise<Post[]> {
     return this.prisma.post.findMany({
       where: {
         postType: {
           in: postTypes,
+        },
+        idOriginal: idOriginal,
+        name: {
+          contains: name,
+          mode: 'insensitive',
         },
       },
       take: limit,
@@ -65,7 +70,14 @@ export class BlogPostRepository implements CRUDRepository<BlogPostEntity, number
       where: {
         id
       },
-      data: { ...item.toObject(), id}
+      include: {
+        reactions: true,
+      },
+      data: {
+        ...item.toObject(),
+        id,
+        reactions: { set: [...item.reactions] }
+      }
     });
   }
 }

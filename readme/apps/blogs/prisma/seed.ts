@@ -10,6 +10,7 @@ async function fillDb() {
     create: {
       idOriginal: 1,
       isRepost: false,
+      isDraft: false,
       postType: 'text',
       name: 'Тестовый пост',
       author: 'Bear',
@@ -28,6 +29,7 @@ async function fillDb() {
         create: [
           {
             userId: '13',
+            author: '',
             text: 'Коммент к тестовому посту 1.',
             createdAt: new Date('2022-12-09'),
             isDelete: false,

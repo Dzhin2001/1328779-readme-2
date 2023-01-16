@@ -1,10 +1,10 @@
-import {PostTypeEnum} from './post-type.enum';
 import {Reaction} from './reaction.interface';
 
 export interface Post {
   id?: number;
   idOriginal?: number;
   isRepost?: boolean;
+  isDraft?: boolean;
   postType?: string;
   name?: string;
   author?: string;

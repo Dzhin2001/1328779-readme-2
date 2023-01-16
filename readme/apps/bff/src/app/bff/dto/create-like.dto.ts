@@ -5,6 +5,6 @@ export class CreateLikeDto {
     description: 'post id ',
     example: '12345678'
   })
-  public idPost: number;
+  public postId: number;
 
 }
