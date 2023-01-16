@@ -1,5 +1,6 @@
 export interface Subscribe {
-  _id?: string;
-  userId: string;
-  author: string;
+  id?: number;
+  userId?: string;
+  author?: string;
+  createdAt?: Date;
 }

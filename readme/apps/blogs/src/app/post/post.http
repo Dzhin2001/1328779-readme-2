@@ -7,7 +7,7 @@ Content-Type: application/json
   "textReview": "Some preview text",
   "text": "Тестовый пост ...",
   "tags": "#monkey",
-  "author": "63a0d94977a490b106e87e43"
+  "author": "638a97f09749f43d9aa3097a"
 }
 
 ###
@@ -33,7 +33,7 @@ Content-Type: application/json
   "quoteText": "Текст цитаты",
   "quoteAuthor": "Автор цитаты",
   "tags": "#monkey",
-  "author": "63a0d94977a490b106e87e43"
+  "author": "638a97f09749f43d9aa3097a"
 }
 
 ###
@@ -42,7 +42,7 @@ Content-Type: application/json
 
 {
   "photoURL": "myFace.jpeg",
-  "tags": "#monkey",
+  "tags": "",
   "author": "63a0d94977a490b106e87e43"
 }
 
@@ -53,7 +53,7 @@ Content-Type: application/json
 {
   "linkText": "Описание ссылки",
   "linkURL": "https://youtube.com",
-  "tags": "#monkey",
+  "tags": "monkey moNkey monKEY",
   "author": "63a0d94977a490b106e87e43"
 }
 
@@ -74,7 +74,7 @@ GET http://localhost:3334/api/posts/5 HTTP/1.1
 ###
 
 # Get all posts
-GET http://localhost:3334/api/posts?page=1&idOriginal=2 HTTP/1.1
+GET http://localhost:3334/api/posts?page=1&name=First HTTP/1.1
 
 
 ###

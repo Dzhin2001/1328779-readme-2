@@ -5,6 +5,5 @@ export interface Reaction {
   author?: string;
   postId?: number;
   text?: string;
-  isDelete?: boolean;
   createdAt?: Date;
 }

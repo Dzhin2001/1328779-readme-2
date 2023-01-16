@@ -1,5 +1,10 @@
 import {ApiProperty} from '@nestjs/swagger';
-import {Expose} from "class-transformer";
+import { Validate } from 'class-validator';
+import {Transform} from 'class-transformer';
+import {transformTags} from '@readme/core';
+import {CustomTagsValidate} from '../validate/custom-tags-validate';
+import {TAGS_ERROR} from '../post.constant';
+
 
 export class CreateLinkDto {
   @ApiProperty({
@@ -18,6 +23,8 @@ export class CreateLinkDto {
     description: 'List of tags',
     example: '#monkee'
   })
+  @Transform( transformTags )
+  @Validate(CustomTagsValidate,{message: TAGS_ERROR} )
   public tags: string;
 
   @ApiProperty({

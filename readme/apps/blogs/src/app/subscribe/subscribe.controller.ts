@@ -5,6 +5,7 @@ import {fillObject} from '@readme/core';
 import {CreateSubscribeDto} from './dto/create-subscribe.dto';
 import {SubscribeRdo} from './rdo/subscribe.rdo';
 import {SubscribeQuery} from './query/subscribe.query';
+import {PostRdo} from '../post/rdo/post.rdo';
 
 @Controller('subscribes')
 export class SubscribeController {
@@ -20,8 +21,8 @@ export class SubscribeController {
 
   @Get('/')
   async index(@Query () query: SubscribeQuery) {
-    const subscribes = await this.subscribeService.getSubscribes(query);
-    return fillObject(SubscribeRdo, subscribes);
+    const posts = await this.subscribeService.getPostBySubscribe(query);
+    return fillObject(PostRdo, posts);
   }
 
   @Post('/')

@@ -1,18 +1,18 @@
-import {IsNumber, IsArray, IsOptional, IsString} from 'class-validator';
+import {IsNumber, IsArray, IsOptional, IsString, IsIn} from 'class-validator';
 import {Expose, Transform} from 'class-transformer';
 import {ReactionTypeEnum} from '@readme/shared-types';
+import {DEFAULT_POST_COUNT_LIMIT, DEFAULT_SORT_DIRECTION} from "../../post/post.constant";
 
 export class SubscribeQuery {
-  @Transform(({ value } ) => +value)
+  @Transform(({ value } ) => +value || DEFAULT_POST_COUNT_LIMIT)
   @IsNumber()
   @IsOptional()
   @Expose()
-  public limit;
+  public limit = DEFAULT_POST_COUNT_LIMIT;
 
-  @Transform(({ value } ) => +value)
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  public postId: number;
+  public userId: string;
 
   @IsString()
   @IsOptional()
@@ -23,9 +23,12 @@ export class SubscribeQuery {
   @IsOptional()
   public ids: number[] = [];
 
-  public type: string = ReactionTypeEnum.Like;
+  @IsIn(['asc', 'desc'])
+  @IsOptional()
+  public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
 
   @Transform(({ value }) => +value)
   @IsOptional()
   public page: number;
+
 }

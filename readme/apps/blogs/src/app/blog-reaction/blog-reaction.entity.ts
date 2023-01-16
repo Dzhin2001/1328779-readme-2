@@ -8,7 +8,6 @@ export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction 
   public author: string;
   public postId: number;
   public text: string;
-  public isDelete: boolean;
   public createdAt: Date;
 
   constructor(blogReaction: Reaction) {
@@ -25,7 +24,6 @@ export class BlogReactionEntity implements Entity<BlogReactionEntity>, Reaction 
     this.author = blogReaction.author;
     this.postId = blogReaction.postId;
     this.text = blogReaction.text;
-    this.isDelete = blogReaction.isDelete;
     this.createdAt = blogReaction.createdAt;
   }
 }

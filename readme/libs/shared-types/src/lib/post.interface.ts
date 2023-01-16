@@ -20,4 +20,6 @@ export interface Post {
   linkURL?: string;
   createdAt?: Date;
   reactions?: Reaction[];
+  likeCount?: number;
+  commentCount?: number;
 }
