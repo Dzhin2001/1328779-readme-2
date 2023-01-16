@@ -1,0 +1,61 @@
+###
+
+
+# Create a new like
+POST http://localhost:3336/api/bff/likes HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId": 5
+}
+
+###
+
+# Delete a like
+DELETE http://localhost:3336/api/bff/likes HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 5
+}
+
+###
+# Get comment by ID
+GET http://localhost:3336/api/bff/comments/3 HTTP/1.1
+
+###
+
+# Get list of comments
+GET http://localhost:3336/api/bff/comments HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Create a new comment
+POST http://localhost:3336/api/bff/comments HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId": 5,
+  "text": "good for monkeys"
+}
+
+###
+
+# Delete a comment
+DELETE http://localhost:3336/api/bff/comments/3 HTTP/1.1
+
+###
+
+
+
+# Get like by ID
+GET http://localhost:3336/api/bff/likes/3 HTTP/1.1
+
+###
+
+# Get list of likes
+GET http://localhost:3336/api/bff/likes HTTP/1.1
+Content-Type: application/json
+
+###

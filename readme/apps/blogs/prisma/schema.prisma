@@ -37,6 +37,7 @@ model Reaction {
   id          Int @id @default(autoincrement())
   type        String
   userId      String @default("")
+  author      String @default("")
   text        String @default("")
   posts       Post @relation(fields: [postId], references: [id])
   postId      Int  @default(-1)

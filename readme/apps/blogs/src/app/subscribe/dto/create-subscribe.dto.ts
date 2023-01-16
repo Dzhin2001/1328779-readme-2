@@ -1,10 +1,10 @@
 import {ApiProperty} from '@nestjs/swagger';
 
-export class DeleteCommentDto {
+export class CreateSubscribeDto {
   @ApiProperty({
-    description: 'id ',
+    description: 'user id ',
     example: '12345678'
   })
-  public id: number;
+  public author: string;
 
 }

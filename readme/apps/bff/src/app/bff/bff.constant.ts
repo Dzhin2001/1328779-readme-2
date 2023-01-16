@@ -5,7 +5,8 @@ export const AUTH_USER_EMAIL_NOT_VALID = 'The email is not valid';
 export const AUTH_ONLY_ANONYMOUS = 'Only for anonymous user';
 export const AUTH_USER_NOT_AUTHORISED = 'User not authirised';
 
-export const DEFAULT_POST_COUNT_LIMIT = 10;
+export const DEFAULT_POST_COUNT_LIMIT = 25;
+export const DEFAULT_POST_SEARCH_LIMIT = 20;
 export const DEFAULT_SORT_DIRECTION = 'desc';
 
 export const RABBITMQ_SERVICE = Symbol('RABBITMQ_SERVICE');

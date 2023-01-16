@@ -5,7 +5,7 @@ export class CreateCommentDto {
     description: 'post id ',
     example: '12345678'
   })
-  public idPost: number;
+  public postId: number;
 
   @ApiProperty({
     description: 'Comment text',

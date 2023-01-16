@@ -11,7 +11,8 @@ import {CreateRepostDto} from './dto/create-repost.dto';
 import {PostRdo} from './rdo/post.rdo';
 import {PostTypeEnum} from '@readme/shared-types';
 import {PostQuery} from './query/post.query';
-import {UpdateDto} from "./dto/update.dto";
+import {UpdateDto} from './dto/update.dto';
+import {DEFAULT_POST_SEARCH_LIMIT} from "./post.constant";
 
 @Controller('posts')
 export class PostController {
@@ -27,6 +28,9 @@ export class PostController {
 
   @Get('/')
   async index(@Query () query: PostQuery) {
+    if (!!query.name) {
+      query.limit = DEFAULT_POST_SEARCH_LIMIT;
+    }
     const posts = await this.postService.getPosts(query);
     return fillObject(PostRdo, posts);
   }
@@ -119,8 +123,7 @@ export class PostController {
   })
   async delete(
     @Param('id') id: number,
-    @Param('author') author: string,
-    @Body() dto: UpdateDto
+    @Param('author') author: string
   ) {
     const newPost = await this.postService.deleteAndValidate(id, author);
     return fillObject(PostRdo, newPost);

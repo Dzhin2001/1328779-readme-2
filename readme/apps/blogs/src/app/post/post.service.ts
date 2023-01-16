@@ -10,7 +10,7 @@ import {CreateRepostDto} from './dto/create-repost.dto';
 import {PostQuery} from './query/post.query';
 import {Post} from '@readme/shared-types';
 import {UpdateDto} from './dto/update.dto';
-import {POST_DELETE_FORBIDDEN, POST_UPDATE_FORBIDDEN} from './post.constant';
+import {POST_DELETE_FORBIDDEN, POST_REPOST_FORBIDDEN, POST_UPDATE_FORBIDDEN} from './post.constant';
 
 @Injectable()
 export class PostService {
@@ -23,7 +23,7 @@ export class PostService {
   }
 
   async getPosts(query: PostQuery): Promise<Post[]> {
-    return this.blogPostRepository.find(query)
+    return this.blogPostRepository.find(query);
   }
 
   async createPost(dto: CreateVideoDto | CreateTextDto | CreateQuoteDto | CreatePhotoDto | CreateLinkDto, postType: string ) {
@@ -32,12 +32,20 @@ export class PostService {
   }
 
   async createRepost(dto: CreateRepostDto ) {
-    const {idOriginal, author} = dto;
-    const postOriginal = await this.blogPostRepository.findById(+idOriginal);
+    const {author} = dto;
+    const idOriginal = +dto.idOriginal;
+    const query = new PostQuery;
+    query.idOriginal = idOriginal;
+    const posts = await this.blogPostRepository.find(query);
+    if (posts.length > 0) {
+      throw new HttpException(POST_REPOST_FORBIDDEN, HttpStatus.FORBIDDEN);
+    }
+    const postOriginal = await this.blogPostRepository.findById(idOriginal);
     const postNew ={
-      ...postOriginal
-      ,author: author
-      ,isRepost: true
+      ...postOriginal,
+      idOriginal: idOriginal,
+      author: author,
+      isRepost: true,
     };
     const postEntity = new BlogPostEntity(postNew);
     return this.blogPostRepository.create(postEntity);
@@ -46,7 +54,7 @@ export class PostService {
   async updateAndValidate(id: number, dto: UpdateDto) {
     const {author} = dto;
     const postOriginal = await this.blogPostRepository.findById(id);
-    if (postOriginal.author !== author) {
+    if (postOriginal?.author !== author) {
       throw new HttpException(POST_UPDATE_FORBIDDEN, HttpStatus.FORBIDDEN);
     }
     const postEntity = new BlogPostEntity({...dto});

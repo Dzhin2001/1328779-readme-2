@@ -2,7 +2,10 @@ import { CRUDRepository } from '@readme/core';
 import { BlogReactionEntity } from './blog-reaction.entity';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import {Reaction} from '@readme/shared-types';
+import { Reaction} from '@readme/shared-types';
+import {LikeQuery} from '../like/query/like.query';
+import {CommentQuery} from '../comment/query/comment.query';
+import {SubscribeQuery} from '../subscribe/query/subscribe.query';
 
 @Injectable()
 export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity, number, Reaction> {
@@ -26,18 +29,32 @@ export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity
   public findById(id: number): Promise<Reaction | null> {
     return this.prisma.reaction.findFirst({
       where: {
-        id
+        id,
       }
     });
   }
 
-  public find(ids: number[] = []): Promise<Reaction[]> {
+  public findByIdAndType(type: string, id: number): Promise<Reaction | null> {
+    return this.prisma.reaction.findFirst({
+      where: {
+        type,
+        id,
+      }
+    });
+  }
+
+  public find({limit, type, ids, postId, author, page}: LikeQuery | CommentQuery | SubscribeQuery): Promise<Reaction[]> {
     return this.prisma.reaction.findMany({
       where: {
+        type,
+        isDelete: false,
+        postId: postId,
         id: {
           in: ids.length > 0 ? ids : undefined
         }
-      }
+      },
+      take: limit,
+      skip: page > 0 ? limit * (page - 1) : undefined,
     });
   }
 

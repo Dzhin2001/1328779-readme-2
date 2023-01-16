@@ -1,0 +1,28 @@
+###
+# Get subscribe by ID
+GET http://localhost:3334/api/subscribes/1 HTTP/1.1
+
+###
+
+# Get list of subscribes
+GET http://localhost:3334/api/subscribes?postId=2&ids=2 HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Create a new subscribe
+POST http://localhost:3334/api/subscribes HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId": 1,
+  "userId": "63a0d94977a490b106e87e43"
+}
+
+###
+
+# Delete a subscribe
+DELETE http://localhost:3334/api/subscribes/2/63a0d94977a490b106e87e43 HTTP/1.1
+
+###
+

@@ -1,9 +1,10 @@
-import {Body, Controller, Delete, Get, HttpStatus, Param, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpStatus, Param, Post, Query} from '@nestjs/common';
 import {LikeService} from './like.service';
 import {ApiResponse} from '@nestjs/swagger';
 import {fillObject} from '@readme/core';
 import {CreateLikeDto} from './dto/create-like.dto';
 import {LikeRdo} from './rdo/like.rdo';
+import {LikeQuery} from './query/like.query';
 
 @Controller('likes')
 export class LikeController {
@@ -18,8 +19,8 @@ export class LikeController {
   }
 
   @Get('/')
-  async index() {
-    const likes = await this.likeService.getLikes();
+  async index(@Query () query: LikeQuery) {
+    const likes = await this.likeService.getLikes(query);
     return fillObject(LikeRdo, likes);
   }
 
@@ -33,13 +34,16 @@ export class LikeController {
     return fillObject(LikeRdo, newLike);
   }
 
-  @Delete('/:id')
+  @Delete('/:id/:userId')
   @ApiResponse({
     status: HttpStatus.ACCEPTED,
     description: 'The like has been successfully deleted.'
   })
-  async delete(@Param('id') id: number) {
-    const like = await this.likeService.deleteLike(id);
+  async delete(
+    @Param('id') id: number,
+    @Param('userId') userId: string
+  ) {
+    const like = await this.likeService.deleteLike(id, userId);
     return fillObject(LikeRdo, like);
   }
 }
