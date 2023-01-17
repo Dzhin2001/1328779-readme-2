@@ -15,10 +15,6 @@ export class CommentQuery {
   @IsOptional()
   public postId: number;
 
-  @IsString()
-  @IsOptional()
-  public author: string;
-
   @Transform(({ value }) => value.split(',').map((id) => +id))
   @IsArray({})
   @IsOptional()

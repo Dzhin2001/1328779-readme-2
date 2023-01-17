@@ -43,11 +43,10 @@ export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity
     });
   }
 
-  public find({limit, type, ids, postId, author, page}: LikeQuery | CommentQuery | SubscribeQuery): Promise<Reaction[]> {
+  public find({limit, type, ids, postId, page}: LikeQuery | CommentQuery ): Promise<Reaction[]> {
     return this.prisma.reaction.findMany({
       where: {
         type,
-        isDelete: false,
         postId: postId,
         id: {
           in: ids.length > 0 ? ids : undefined

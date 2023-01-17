@@ -124,4 +124,17 @@ export class PostRdo {
   @Expose()
   public linkURL: string;
 
+  @ApiProperty({
+    description: 'Like counter value',
+    example: '100500'
+  })
+  @Expose()
+  public likeCount: number;
+
+  @ApiProperty({
+    description: 'Comment counter value',
+    example: '100500'
+  })
+  @Expose()
+  public commentCount: number;
 }

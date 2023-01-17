@@ -30,10 +30,4 @@ export class CommentRdo {
   @Expose()
   public text: string;
 
-  @ApiProperty({
-    description: 'Deletion flag',
-    example: 'true/false'
-  })
-  @Expose()
-  public isDelete: boolean;
 }

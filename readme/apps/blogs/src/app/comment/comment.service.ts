@@ -45,7 +45,7 @@ export class CommentService {
     if (!reaction) {
       throw new HttpException(COMMENT_DOESNT_EXISTS_ERROR, HttpStatus.FORBIDDEN);
     }
-    if (reaction.userId !== userId || reaction.isDelete) {
+    if (reaction.userId !== userId) {
       throw new HttpException(COMMENT_DELETE_FORBIDDEN, HttpStatus.FORBIDDEN);
     }
     return await this.blogReactionRepository.destroy(reaction.id);

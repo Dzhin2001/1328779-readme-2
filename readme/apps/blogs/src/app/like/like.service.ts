@@ -51,7 +51,7 @@ export class LikeService {
     if (!reaction) {
       throw new HttpException(LIKE_DOESNT_EXISTS_ERROR, HttpStatus.FORBIDDEN);
     }
-    if (reaction.userId !== userId || reaction.isDelete) {
+    if (reaction.userId !== userId) {
       throw new HttpException(LIKE_DELETE_FORBIDDEN, HttpStatus.FORBIDDEN);
     }
     return await this.blogReactionRepository.destroy(reaction.id);

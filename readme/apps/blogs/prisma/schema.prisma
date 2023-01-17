@@ -4,6 +4,7 @@
 generator client {
   provider = "prisma-client-js"
   output = "../../../node_modules/.prisma/client"
+  previewFeatures = ["filteredRelationCount"]
 }
 
 datasource db {
@@ -41,6 +42,12 @@ model Reaction {
   text        String @default("")
   posts       Post @relation(fields: [postId], references: [id])
   postId      Int  @default(-1)
-  isDelete    Boolean @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Subscribe {
+  id          Int @id @default(autoincrement())
+  userId      String @default("")
+  author      String @default("")
   createdAt   DateTime @default(now())
 }
