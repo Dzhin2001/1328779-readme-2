@@ -1,14 +1,14 @@
 import {IsNumber, IsArray, IsOptional, IsString, IsIn} from 'class-validator';
 import {Expose, Transform} from 'class-transformer';
-import {ReactionTypeEnum} from '@readme/shared-types';
-import {DEFAULT_POST_COUNT_LIMIT, DEFAULT_SORT_DIRECTION} from "../../post/post.constant";
+import {SubscribeQueryDefault} from '../subscribe.constant';
+
 
 export class SubscribeQuery {
-  @Transform(({ value } ) => +value || DEFAULT_POST_COUNT_LIMIT)
+  @Transform(({ value } ) => +value || SubscribeQueryDefault.SubscribeQueryCountLimit)
   @IsNumber()
   @IsOptional()
   @Expose()
-  public limit = DEFAULT_POST_COUNT_LIMIT;
+  public limit: number = SubscribeQueryDefault.SubscribeQueryCountLimit;
 
   @IsString()
   @IsOptional()
@@ -25,7 +25,7 @@ export class SubscribeQuery {
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
-  public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
+  public sortDirection: 'desc' | 'asc' = SubscribeQueryDefault.SubscribeQuerySortDirection;
 
   @Transform(({ value }) => +value)
   @IsOptional()

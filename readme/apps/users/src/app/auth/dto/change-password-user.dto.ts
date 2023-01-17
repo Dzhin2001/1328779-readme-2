@@ -1,6 +1,6 @@
 import {ApiProperty} from '@nestjs/swagger';
 import {IsEmail, IsString} from 'class-validator';
-import {AUTH_USER_EMAIL_NOT_VALID} from '../auth.constant';
+import {AuthValidationMessage} from '../auth.constant';
 
 export class ChangePasswordUserDto {
   @ApiProperty({
@@ -9,7 +9,7 @@ export class ChangePasswordUserDto {
   })
   @IsEmail(
     {},
-    {message: AUTH_USER_EMAIL_NOT_VALID},
+    {message: AuthValidationMessage.AuthUserEmailNotFound},
   )
   public email: string;
 

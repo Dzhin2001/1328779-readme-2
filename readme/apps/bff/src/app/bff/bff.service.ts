@@ -1,8 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import { catchError, firstValueFrom, map } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 import {HttpService} from '@nestjs/axios';
-import {AxiosError, AxiosResponse} from 'axios';
-import Axios from 'axios';
+import {AxiosError} from 'axios';
 import {ServiceUrl} from './bff.constant';
 import { RestApiError } from '@readme/shared-types';
 import {UserRdo} from './rdo/user.rdo';
@@ -40,7 +39,9 @@ export class BffService {
       resp.status = true;
       resp.user = data;
 
-    } catch (e) {}
+    } catch (e) {
+      resp.status = false;
+    }
 
     return resp;
   }
@@ -50,7 +51,6 @@ export class BffService {
     dto: object,
     token?: string | undefined
   ) {
-    //console.log(`BFF service - post - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .post<T>(
@@ -71,7 +71,6 @@ export class BffService {
     dto: object,
     token?: string | undefined
   ) {
-    //console.log(`BFF service - patch - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .patch<T>(
@@ -91,7 +90,6 @@ export class BffService {
     url: string,
     token?: string | undefined
   ) {
-    //console.log(`BFF service - delete - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .delete<T>(
@@ -110,7 +108,6 @@ export class BffService {
     url: string,
     token?: string | undefined
   ) {
-    //console.log(`BFF service - get - url=${url}`);
     const {data} = await firstValueFrom(
       this.httpService
         .get<T>(

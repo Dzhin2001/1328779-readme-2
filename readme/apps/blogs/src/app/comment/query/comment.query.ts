@@ -1,4 +1,4 @@
-import {IsNumber, IsArray, IsOptional, IsString} from 'class-validator';
+import {IsNumber, IsArray, IsOptional} from 'class-validator';
 import {Expose, Transform} from 'class-transformer';
 import {ReactionTypeEnum} from '@readme/shared-types';
 import {DEFAULT_COMMENT_COUNT_LIMIT} from '../comment.constant';
@@ -8,7 +8,7 @@ export class CommentQuery {
   @IsNumber()
   @IsOptional()
   @Expose()
-  public limit = DEFAULT_COMMENT_COUNT_LIMIT;
+  public limit: number = DEFAULT_COMMENT_COUNT_LIMIT;
 
   @Transform(({ value } ) => +value)
   @IsNumber()

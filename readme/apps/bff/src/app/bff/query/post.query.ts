@@ -1,13 +1,13 @@
 import {IsIn, IsNumber, IsArray, IsOptional, IsString} from 'class-validator';
 import { Transform, Expose } from 'class-transformer';
-import { DEFAULT_POST_COUNT_LIMIT, DEFAULT_SORT_DIRECTION } from '../bff.constant';
+import { PostQueryDefault } from '../bff.constant';
 
 export class PostQuery {
-  @Transform(({ value } ) => +value || DEFAULT_POST_COUNT_LIMIT)
+  @Transform(({ value } ) => +value || PostQueryDefault.PostQueryCountLimit)
   @IsNumber()
   @IsOptional()
   @Expose()
-  public limit = DEFAULT_POST_COUNT_LIMIT;
+  public limit: number = PostQueryDefault.PostQueryCountLimit;
 
   @Transform(({ value } ) => +value)
   @IsNumber()
@@ -25,7 +25,7 @@ export class PostQuery {
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
-  public sortDirection: 'desc' | 'asc' = DEFAULT_SORT_DIRECTION;
+  public sortDirection: 'desc' | 'asc' = PostQueryDefault.PostQuerySortDirection;
 
   @Transform(({ value }) => +value)
   @IsOptional()

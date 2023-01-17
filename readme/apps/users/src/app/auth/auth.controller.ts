@@ -28,7 +28,6 @@ import {diskStorage} from 'multer';
 import * as mime from 'mime-types'
 import {nanoid} from 'nanoid';
 import {User} from '@readme/shared-types';
-import {UpdateUserDto} from "./dto/update-user.dto";
 
 @ApiTags('auth')
 @Controller('auth')

@@ -4,12 +4,7 @@ import {BlogReactionRepository} from '../blog-reaction/blog-reaction.repository'
 import {CreateSubscribeDto} from './dto/create-subscribe.dto';
 import {Post, Subscribe} from '@readme/shared-types';
 import {BlogPostRepository} from '../blog-post/blog-post.repository';
-import {
-  SUBSCRIBE_ALREADY_EXISTS,
-  SUBSCRIBE_DOESNT_EXISTS_ERROR,
-  SUBSCRIBE_DELETE_FORBIDDEN,
-  SUBSCRIBE_USER_DEFINE_ERROR
-} from './subscribe.constant';
+import {SubscribeValidationMessage} from './subscribe.constant';
 import {SubscribeQuery} from './query/subscribe.query';
 import {BlogSubscribeRepository} from './blog-subscribe.repository';
 import {PostQuery} from "../post/query/post.query";
@@ -32,7 +27,7 @@ export class SubscribeService {
 
   async getPostBySubscribe(query: SubscribeQuery): Promise<Post[]> {
     if (!query.userId) {
-      throw new HttpException(SUBSCRIBE_USER_DEFINE_ERROR, HttpStatus.FORBIDDEN);
+      throw new HttpException(SubscribeValidationMessage.SubscribeUserDefineError, HttpStatus.FORBIDDEN);
     };
     const subscribes = await this.blogSubscribeRepository.find(query);
     const authors = [
@@ -54,7 +49,7 @@ export class SubscribeService {
     query.author = author;
     const subscribes = await this.blogSubscribeRepository.find(query);
     if (subscribes.length > 0) {
-      throw new HttpException(SUBSCRIBE_ALREADY_EXISTS, HttpStatus.FORBIDDEN);
+      throw new HttpException(SubscribeValidationMessage.SubscribeAlreadyExists, HttpStatus.FORBIDDEN);
     }
     const subscribeEntity = new BlogReactionEntity(dto);
     return await this.blogSubscribeRepository.create(subscribeEntity);
@@ -63,10 +58,10 @@ export class SubscribeService {
   async deleteSubscribe(id: number, userId: string ) {
     const subscribe = await this.blogSubscribeRepository.findById(id);
     if (!subscribe) {
-      throw new HttpException(SUBSCRIBE_DOESNT_EXISTS_ERROR, HttpStatus.FORBIDDEN);
+      throw new HttpException(SubscribeValidationMessage.SubscribeDoesntExistsError, HttpStatus.FORBIDDEN);
     }
     if (subscribe.userId !== userId) {
-      throw new HttpException(SUBSCRIBE_DELETE_FORBIDDEN, HttpStatus.FORBIDDEN);
+      throw new HttpException(SubscribeValidationMessage.SubscribeDeleteForbidden, HttpStatus.FORBIDDEN);
     }
     return await this.blogSubscribeRepository.destroy(subscribe.id);
   }

@@ -8,12 +8,11 @@ import {
   Headers,
   Delete,
   HttpException,
-  Req,
 } from '@nestjs/common';
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {BffService} from './bff.service';
 import {HttpService} from '@nestjs/axios';
-import {AUTH_USER_NOT_AUTHORISED, ServiceUrl} from './bff.constant';
+import {AuthValidationMessage, ServiceUrl} from './bff.constant';
 import {LikeRdo} from './rdo/like.rdo';
 import {CreateLikeDto} from './dto/create-like.dto';
 import {CommentRdo} from './rdo/comment.rdo';
@@ -48,7 +47,7 @@ export class BffController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     return await this.bffService.bffPost<LikeRdo>(ServiceUrl.Likes(), dto);
   }
@@ -64,7 +63,7 @@ export class BffController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     return await this.bffService.bffDelete<LikeRdo>(`${ServiceUrl.Likes()}/${id}`);
   }
@@ -90,7 +89,7 @@ export class BffController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     return await this.bffService.bffPost<CommentRdo>(ServiceUrl.Comments(), dto);
   }
@@ -106,7 +105,7 @@ export class BffController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     return await this.bffService.bffDelete<CommentRdo>(`${ServiceUrl.Comments()}/${id}`);
   }

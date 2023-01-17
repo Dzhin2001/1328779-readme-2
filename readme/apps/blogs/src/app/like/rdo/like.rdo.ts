@@ -21,7 +21,7 @@ export class LikeRdo {
     example: 'id12345678'
   })
   @Expose()
-  public userId: String;
+  public userId: string;
 
   @ApiProperty({
     description: 'Deletion flag',

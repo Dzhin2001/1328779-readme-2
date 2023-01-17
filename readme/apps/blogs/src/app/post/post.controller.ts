@@ -12,7 +12,7 @@ import {PostRdo} from './rdo/post.rdo';
 import {PostTypeEnum} from '@readme/shared-types';
 import {PostQuery} from './query/post.query';
 import {UpdateDto} from './dto/update.dto';
-import {DEFAULT_POST_SEARCH_LIMIT} from "./post.constant";
+import {PostQueryDefault} from './post.constant';
 
 @Controller('posts')
 export class PostController {
@@ -28,8 +28,8 @@ export class PostController {
 
   @Get('/')
   async index(@Query () query: PostQuery) {
-    if (!!query.name) {
-      query.limit = DEFAULT_POST_SEARCH_LIMIT;
+    if (query.name) {
+      query.limit = PostQueryDefault.PostQuerySearchLimit;
     }
     const posts = await this.postService.getPosts(query);
     return fillObject(PostRdo, posts);

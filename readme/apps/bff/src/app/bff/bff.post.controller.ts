@@ -14,7 +14,7 @@ import {
 import {ApiResponse, ApiTags} from '@nestjs/swagger';
 import {BffService} from './bff.service';
 import {HttpService} from '@nestjs/axios';
-import {AUTH_USER_NOT_AUTHORISED, ServiceUrl} from './bff.constant';
+import {AuthValidationMessage, ServiceUrl} from './bff.constant';
 import {PostRdo} from './rdo/post.rdo';
 import {CreateVideoDto} from './dto/create-video.dto';
 import {CreateTextDto} from './dto/create-text.dto';
@@ -22,13 +22,12 @@ import {CreateQuoteDto} from './dto/create-quote.dto';
 import {CreatePhotoDto} from './dto/create-photo.dto';
 import {CreateLinkDto} from './dto/create-link.dto';
 import {CreateRepostDto} from './dto/create-repost.dto';
-import {User} from "@readme/shared-types";
-import {UserRdo} from "./rdo/user.rdo";
-import {UpdatePostDto} from "./dto/update-post.dto";
-import {FileInterceptor} from "@nestjs/platform-express";
-import {diskStorage} from "multer";
-import * as mime from "mime-types";
-import {nanoid} from "nanoid";
+import {UserRdo} from './rdo/user.rdo';
+import {UpdatePostDto} from './dto/update-post.dto';
+import {FileInterceptor} from '@nestjs/platform-express';
+import {diskStorage} from 'multer';
+import * as mime from 'mime-types';
+import {nanoid} from 'nanoid';
 
 @ApiTags('bff')
 @Controller('bff')
@@ -50,7 +49,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/video`, {...dto, author});
@@ -67,7 +66,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/text`, {...dto, author});
@@ -83,7 +82,7 @@ export class BffPostController {
     @Headers('Authorization') token: string) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/quote`, {...dto, author});
@@ -100,7 +99,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/photo`, {...dto, author});
@@ -117,7 +116,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/link`, {...dto, author});
@@ -134,7 +133,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPost<PostRdo>(`${ServiceUrl.Posts()}/repost`, {...dto, author});
@@ -156,7 +155,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffPatch<PostRdo>(`${ServiceUrl.Posts()}/${id}`, {...dto, author});
@@ -186,7 +185,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     const dto = {
@@ -217,7 +216,7 @@ export class BffPostController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (!auth.status) {
-      throw new HttpException(AUTH_USER_NOT_AUTHORISED, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(AuthValidationMessage.AuthUserNotAuthorised, HttpStatus.UNAUTHORIZED);
     }
     const {id: author} = auth.user as UserRdo;
     return await this.bffService.bffDelete<PostRdo>(`${ServiceUrl.Posts()}/${id}/${author}`);

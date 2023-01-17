@@ -4,17 +4,13 @@ import { BlogUserRepository } from '../blog-user/blog-user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import {
-  AUTH_USER_EXISTS,
-  AUTH_USER_NOT_FOUND,
-  AUTH_USER_PASSWORD_WRONG,
+  AuthValidationMessage,
   RABBITMQ_SERVICE,
 } from './auth.constant';
 import { BlogUserEntity } from '../blog-user/blog-user.entity';
 import {ChangePasswordUserDto} from './dto/change-password-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ClientProxy } from '@nestjs/microservices';
-import {UpdateUserDto} from './dto/update-user.dto';
-import {fillObject} from '@readme/core';
 
 @Injectable()
 export class AuthService {
@@ -38,7 +34,7 @@ export class AuthService {
       .findByEmail(email);
 
     if (existUser) {
-      throw new HttpException(AUTH_USER_EXISTS, HttpStatus.FORBIDDEN );
+      throw new HttpException(AuthValidationMessage.AuthUserExists, HttpStatus.FORBIDDEN );
     }
 
     const userEntity = await new BlogUserEntity(blogUser)
@@ -64,12 +60,12 @@ export class AuthService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new UnauthorizedException(AUTH_USER_NOT_FOUND);
+      throw new UnauthorizedException(AuthValidationMessage.AuthUserNotFound);
     }
 
     const blogUserEntity = new BlogUserEntity(existUser);
     if (! await blogUserEntity.comparePassword(password)) {
-      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+      throw new UnauthorizedException(AuthValidationMessage.AuthUserPasswordWrong);
     }
 
     return blogUserEntity.toObject();
@@ -80,12 +76,12 @@ export class AuthService {
     const existUser = await this.blogUserRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new UnauthorizedException(AUTH_USER_NOT_FOUND);
+      throw new UnauthorizedException(AuthValidationMessage.AuthUserNotFound);
     }
 
     const blogUserEntity = new BlogUserEntity(existUser);
     if (! await blogUserEntity.comparePassword(password)) {
-      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+      throw new UnauthorizedException(AuthValidationMessage.AuthUserPasswordWrong);
     }
 
     await blogUserEntity.setPassword(newPassword);

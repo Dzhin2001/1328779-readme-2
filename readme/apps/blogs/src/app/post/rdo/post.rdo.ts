@@ -22,14 +22,14 @@ export class PostRdo {
     example: 'true'
   })
   @Expose()
-  public isDraft: String;
+  public isDraft: string;
 
   @ApiProperty({
     description: 'Repost flag',
     example: 'true'
   })
   @Expose()
-  public isRepost: String;
+  public isRepost: string;
 
   @ApiProperty({
     description: 'Type of post',

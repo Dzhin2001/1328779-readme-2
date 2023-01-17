@@ -1,6 +1,8 @@
-export const DEFAULT_POST_COUNT_LIMIT = 25;
-export const DEFAULT_POST_SEARCH_LIMIT = 20;
-export const DEFAULT_SORT_DIRECTION = 'desc';
+export enum PostQueryDefault {
+  PostQueryCountLimit = 25,
+  PostQuerySearchLimit = 20,
+  PostQuerySortDirection = 'desc',
+}
 
 export const TAGS_MAX_COUNT = 8;
 export const TAGS_MIN_LENGTH = 3;

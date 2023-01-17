@@ -5,7 +5,6 @@ import { Injectable } from '@nestjs/common';
 import { Reaction} from '@readme/shared-types';
 import {LikeQuery} from '../like/query/like.query';
 import {CommentQuery} from '../comment/query/comment.query';
-import {SubscribeQuery} from '../subscribe/query/subscribe.query';
 
 @Injectable()
 export class BlogReactionRepository implements CRUDRepository<BlogReactionEntity, number, Reaction> {

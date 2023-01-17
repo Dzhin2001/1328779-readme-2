@@ -1,6 +1,13 @@
-export const SUBSCRIBE_CREATE_EXISTS_ERROR = 'Post does not exists.';
-export const SUBSCRIBE_CREATE_FORBIDDEN = 'Post status does not allow creating SUBSCRIBE.';
-export const SUBSCRIBE_ALREADY_EXISTS = 'SUBSCRIBE already exists for this Post.';
-export const SUBSCRIBE_DELETE_FORBIDDEN = 'User not allowed to delete SUBSCRIBE.';
-export const SUBSCRIBE_DOESNT_EXISTS_ERROR = 'SUBSCRIBE does not exists.';
-export const SUBSCRIBE_USER_DEFINE_ERROR = 'User must be defined.';
+export enum SubscribeQueryDefault {
+  SubscribeQueryCountLimit = 25,
+  SubscribeQuerySortDirection = 'desc',
+}
+
+export enum SubscribeValidationMessage {
+  SubscribeCreateExistsError = 'Post does not exists.',
+  SubscribeCreateForbidden = 'Post status does not allow creating SUBSCRIBE.',
+  SubscribeAlreadyExists = 'SUBSCRIBE already exists for this Post.',
+  SubscribeDeleteForbidden = 'User not allowed to delete SUBSCRIBE.',
+  SubscribeDoesntExistsError = 'SUBSCRIBE does not exists.',
+  SubscribeUserDefineError = 'User must be defined.',
+}

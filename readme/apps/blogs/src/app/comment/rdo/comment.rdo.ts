@@ -21,7 +21,7 @@ export class CommentRdo {
     example: 'id12345678'
   })
   @Expose()
-  public userId: String;
+  public userId: string;
 
   @ApiProperty({
     description: 'Text of comment',

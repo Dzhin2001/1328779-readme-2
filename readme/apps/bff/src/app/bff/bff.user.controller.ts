@@ -17,7 +17,7 @@ import {BffService} from './bff.service';
 import {CreateUserDto} from './dto/create-user.dto';
 import {UserRdo} from './rdo/user.rdo';
 import {HttpService} from '@nestjs/axios';
-import {AUTH_ONLY_ANONYMOUS, AUTH_USER_NOT_AUTHORISED, ServiceUrl} from './bff.constant';
+import {AuthValidationMessage, ServiceUrl} from './bff.constant';
 import {LoggedUserRdo} from './rdo/logged-user.rdo';
 import {LoginUserDto} from './dto/login-user.dto';
 import {ChangePasswordUserDto} from './dto/change-password-user.dto';
@@ -50,7 +50,7 @@ export class BffUserController {
   ) {
     const auth = await this.bffService.bffValidateToken(token);
     if (auth.status) {
-      throw new HttpException(AUTH_ONLY_ANONYMOUS, HttpStatus.FORBIDDEN);
+      throw new HttpException(AuthValidationMessage.AuthUserOnlyAnonymous, HttpStatus.FORBIDDEN);
     }
     return this.bffService.bffPost<UserRdo>(ServiceUrl.Register(), dto);
   }
